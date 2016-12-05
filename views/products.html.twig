@@ -25,7 +25,11 @@
 			<!---->
 			<div class="grid_1 simpleCart_shelfItem">
 				<a href="#" class="cup item_add"><span class=" item_price">{{rows.price}}
-						€ <i> </i> </span></a>
+						€ <i> </i> </span>
+						{% if rows.stock ==1 %}
+						<span style="color:orange;">En rupture</span>
+		                {% endif %}	
+						</a>
 			</div>
 			<!---->
 		</div>
