@@ -52,11 +52,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				
 				
 				{% if username is defined %}	
-				<li ><a href="/logout.html" >logout</a></li>
-				<li ><a href="/profil.html" >profil</a></li>
+				<li ><a href="/logout.html" >logout <span style="color:#eeeeee">({{ username }})</span></a></li>
+				<li ><a href="/profil.html" >my profil</a></li>
 				<li ><a href="/admin" >admin</a></li>
 				{% else %}
 				<li ><a href="/login.html" >login</a></li>
+				<li ><a href="/register.html" >register</a></li>
 				{% endif %}
 				
 				
