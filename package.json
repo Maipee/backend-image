@@ -1,0 +1,19 @@
+{
+  "name": "eBoutique",
+  "version" : "0.0.1",
+  "scripts" : {"start":"app.js"},
+  "dependencies" : {
+	"express":"4.14.0",
+	"twig":"0.10.1",
+	"bootstrap":"3.3.7",
+	"dateformat":"latest",
+	"passport":"latest",
+	"passport-local":"latest",
+	"mongodb":"latest",
+	"mysql":"latest",
+	"body-parser":"latest",
+	"express-session":"latest",
+	"url":"latest",
+	"cookie-session":"latest",
+	"querystring":"latest"}
+}

@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+{% set addTypeList = ["domicile", "facturation", "courrier", "livraison"] %}
+{% block body %}
+	<div class="container">
+		<div class="contact">
+			<h2>REGISTER</h2>
+			<div class="contact-in">
+    			<div class=" col-md-3 contact-right">
+				</div>
+    			<div class=" col-md-9 contact-left">
+    				<form name="register" action="/register.html" method="post">
+    					<div style="margin: 2em 0 1em 0;">
+    						<h3>Login informations</h3>
+    					</div>    					
+    					<div>
+    						<span>Email&nbsp;&nbsp;&nbsp;</span>
+    						<input name="email" type="text" class="textbox"  />
+    					</div>
+    					<div>
+    						<label style="font-weight: normal;"><span>Password : </span></label>
+    						<input name="password" type="password" class="textbox" style="margin-left:6% ;" />
+    					</div>
+    					<div>
+    						<label style="font-weight: normal;"><span>Repeat password : </span></label>
+    						<input name="reppassword" type="password" class="textbox"  />
+    					</div>
+    					<div>
+    						<span>Username</span>
+    						<input name="username" type="text" class="textbox"  />
+    					</div>		
+    					<div style="margin: 2em 0 1em 0;">
+    						<h3>Personal informations</h3>
+    					</div>	
+    					<div>
+    						<span>Civility</span>
+    						<input name="civilite" type="radio" value="Monsieur" > Mister&nbsp;&nbsp;&nbsp;
+    						<input name="civilite" type="radio" value="Madame" > Miss
+    					</div>
+    					<div>
+    						<span>Firstname</span>
+    						<input name="prenom" type="text" class="textbox" />
+    					</div>
+    					<div>
+    						<span>Lastname</span>
+    						<input name="nom" type="text" class="textbox" />
+    					</div>
+    					<div>
+    						<span>Tel</span>
+    						<input name="telephone" type="text" class="textbox"  />
+    					</div>
+    					<div style="margin: 2em 0 1em 0;">
+    						<h3>Adress information</h3>
+    					</div>
+    					<div id="checkbox" style="margin-top:40px; margin-bottom:40px;">
+					{% for addType in addTypeList %}
+							<input type="checkbox" id="chec{{ loop.index }}" {% if addType == "domicile" %}checked="checked" class="afficher" disabled {%  else %} class="cacher" {% endif %} name="checkbox{{addType}}" > {{addType}} </input>
+					{% endfor %}
+						</div>
+							<div class="panel-group" id="accordion">
+						{% for addType in addTypeList %}
+								<div class="panel panel-default" id="aff{{ loop.index }}">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}"> {{ addType|capitalize }}</a>
+										</h4>
+									</div>							
+									<div id="collapse{{ loop.index }}"
+								class="panel-collapse collapse in">								
+										<div class="panel-body">								
+											<div>
+												<span>Number</span> <input name="numero{{ addType }}" type="text" class="textbox" value="{{ profil.num }}" />
+											</div>
+											<div>
+												<span>Street</span> <input name="rue{{ addType }}" type="text"	class="textbox" value="{{ profil.street }}" />
+											</div>
+											<div>
+												<span>Postal Code</span> <input name="CP{{ addType }}" type="text"	class="textbox" value="{{ profil.pc }}" />
+											</div>
+											<div>
+												<span>Town</span> <input name="ville{{ addType }}" type="text"	class="textbox" value="{{ profil.city }}" />
+											</div>
+											<div style="height: 1em;">
+												<!-- <span>Type</span>
+												<select name="type_adr" class="textbox">
+												<option value="domicile">Home</option>
+												<option value="livraison">Delivery</option>
+												<option value="facturation">Billing</option>
+												<option value="courrier">Mail</option>
+												</select>-->
+											</div>
+										</div>
+									</div>
+								</div>
+						{% endfor %}
+							</div>
+    				<div>
+    					<input type="submit" value="Submit">
+    				</div>
+    				</form>
+    			</div>
+    		</div>
+			<div class="clearfix">
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %} 
+<script>
+$(document).ready(function(){
+	$("#accordion>div:not(:first)").hide();//on cache les onglets sauf l'onglet domicile
+});
+{% for addType in addTypeList %}
+
+	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
+	$('#chec{{ loop.index }}').on('click', function() {
+			$('#aff{{ loop.index }}').toggle();
+			});
+
+{% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+	<div class="check">
+		<div class="col-md-3 cart-total">
+			<a class="continue" href="/caddie/continuer"">Continue your
+				purchases</a>
+			<div class="price-details">
+				{%  if liste_commande is defined %}
+				<h3>Price Details</h3>
+				<span>Total</span> <span class="total1">{{ price.ttc }} €</span> <span>Discount</span>
+				<span class="total1">---</span> <span>Delivery Charges</span> <span
+					class="total1">{{ price.charge }} €</span>
+				<div class="clearfix"></div>
+			</div>
+			<ul class="total_price">
+				<li class="last_price">
+					<h4>TOTAL</h4>
+				</li>
+				<li class="last_price"><span>{{ price.fin }} €</span></li>
+				<div class="clearfix"></div>
+				{% endif %}
+				{% if username is defined %}
+				<br /> Hello : { username }
+				{% else %}
+				<a class="cart" href="/login.html">sign in</a>
+				<div class="cart"></div>
+				<a class="cart" href="/registar">registar</a>
+				{% endif %}
+			</ul>
+		</div>
+		<div class="col-md-9 cart-items">
+
+			<h1>My Shopping Bag (2)</h1>
+
+			{% if liste_commande is defined %}
+
+			{% for prod in liste_commande %}
+
+			<script>$(document).ready(function(c) {
+					$('.close{{ loop.index }}').on('click', function(c){
+						$('.cart-header').fadeOut('slow', function(c){
+							$('.cart-header').remove();
+						});
+						});	  
+					});
+			   </script>
+			<div class="cart-header">
+				<div class="close{{ loop.index }}"></div>
+
+				<div class="cart-sec simpleCart_shelfItem">
+					<div class="cart-item cyc">
+						<img src="images/{{ prod.Image }}" class="img-responsive" alt="" />
+					</div>
+					<div class="cart-item-info">
+						<h3>
+							<a href="#">{{ prod.Label }}</a>
+						</h3>
+						<ul class="qty">
+
+							<li>
+								<p>Quantity :</p> <input type="text" value="{{ prod.quantite }}"
+								id="qty{{ loop.index }}"> </input>
+							</li>
+							<li id="id=" mod{{ loop.index }}"><input type="button"
+								id="id=" mod {{ loop.index }} value="Modify"> </input></li>
+						</ul>
+						<div class="delivery">
+							<p>Service Charges : Rs.100.00</p>
+							<span>Delivered in 2-3 bussiness days</span>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+
+			{% endfor %}
+			{% endif %}
+		</div>
+		<div class="col-md-9 cart-items"></div>
+		<div class="col-md-3 cart-total">
+			<a class="continue" href="/caddie/continuer">Validate the order</a>
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+//quand la page est chargé alors on execute le code dans les balises script
+$(document).ready(function(){
+	 {% if caddy is defined %}
+	  
+	  {% for prod in caddy %}
+	
+	
+	
+	$("#qty{{ loop.index }}").on('blur', function(event){
+		
+		console.log('ok pour on blur' + event.target.value);
+		//event.target.value recupere la valeur modifier
+		//event.source.value recupere la valeur initial
+		
+		var url = "/caddie/modifier/{{ prod.id }}/"+event.target.value;
+		$.ajax(url).done(function(){
+			 alert('ok');
+			console.log('fonction ajax');
+
+			$("#mod{{ loop.index }}").on('click' , function () {             
+                alert('url : '+url);
+                console.log('fonction on click');               
+            });
+				 
+			});			
+	});
+		
+	 {% endfor %}		
+     {% endif %}
+	
+});
+
+</script>
+{% endblock %}

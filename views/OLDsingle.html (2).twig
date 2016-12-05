@@ -1,0 +1,218 @@
+{% extends 'base.html.twig' %}
+
+{% block scripts %}
+<link rel="stylesheet" href="css/etalage.css">
+
+<script src="js/jquery.etalage.min.js"></script>
+<script>
+			jQuery(document).ready(function($){
+
+				$('#etalage').etalage({
+					thumb_image_width: 300,
+					thumb_image_height: 400,
+					source_image_width: 900,
+					source_image_height: 1200,
+					show_hint: true,
+					click_callback: function(image_anchor, instance_id){
+						alert('Callback example:\nYou clicked on an image with the anchor: "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")');
+					}
+				});
+			});
+		</script>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+	<div class="container">
+		<div class="single">
+			<div class="col-md-9 top-in-single">
+				<div class="col-md-5 single-top">
+
+					{%  if img is defined %}
+					<img class="etalage_thumb_image img-responsive"
+						src="/{{ img.img1 }}"> {# <ul id="etalage">#} {# <li><a
+					href="optionallink.html"> <img #} {# class="etalage_thumb_image
+					img-responsive" src="/{{ img.img1 }}"#} {# alt=""> <img
+					class="etalage_source_image img-responsive"#} {# src="/{{ img.img5
+					}}" alt="">#} {# </a></li>#} {# <li><img class="etalage_thumb_image
+					img-responsive"#} {# src="/{{ img.img2 }}" alt=""> <img#} {#
+					class="etalage_source_image img-responsive" src="/{{ img.img6 }}"#}
+					{# alt=""></li>#} {# <li><img class="etalage_thumb_image
+					img-responsive"#} {# src="/{{ img.img3 }}" alt=""> <img#} {#
+					class="etalage_source_image img-responsive" src="/{{ img.img7 }}"#}
+					{# alt=""></li>#} {# <li><img class="etalage_thumb_image
+					img-responsive"#} {# src="/{{ img.img4 }}" alt=""> <img#} {#
+					class="etalage_source_image img-responsive" src="/{{ img.img8 }}"#}
+					{# alt=""></li>#} {# </ul>#}
+
+					{% else %}
+					no image found 
+					{% endif %}
+				</div>
+				{% for rows in products %}
+				<div class="col-md-7 single-top-in">
+					<div class="single-para">
+						<h4>
+							{{ rows.label }}
+						</h4>
+						<p>
+							{{ rows.description }}
+						</p>
+						<div class="star-on">
+							<ul>
+								<li><a href="#"><i> </i></a></li>
+								<li><a href="#"><i> </i></a></li>
+								<li><a href="#"><i> </i></a></li>
+								<li><a href="#"><i> </i></a></li>
+								<li><a href="#"><i> </i></a></li>
+							</ul>
+							<div class="review">
+								<a href="#"> 3 reviews </a>/ <a href="#"> Write a review</a>
+							</div>
+
+							<div class="clearfix"></div>
+						</div>
+						<label class="add-to" name="prix" id="prix">{{ rows.price }}
+							€</label>
+						<div class="available">
+							<h6>Available Options :</h6>
+							<ul>
+								<li>Quantité: <input type="text" value="1" id="qt-rec" /></li>
+							</ul>
+						</div>
+
+						<a href="caddie/ajouter/{{ prod.id }}/{{ prod.qut }}" class="cart"
+							id="url_add">Ajouter au panier</a>
+					</div>
+
+				</div>
+				{% else %}
+				no image
+				{% endif %}
+				<div class="clearfix"></div>
+				<!----- tabs-box ---->
+				<div class="sap_tabs">
+					<div id="horizontalTab"
+						style="display: block; width: 100%; margin: 0px;">
+						<ul class="resp-tabs-list">
+							<li class="resp-tab-item " aria-controls="tab_item-0" role="tab"><span>Product
+									Description</span></li>
+							<li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Additional
+									Information</span></li>
+							<li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>Reviews</span></li>
+							<div class="clearfix"></div>
+						</ul>
+						<div class="resp-tabs-container">
+							<h2 class="resp-accordion resp-tab-active" role="tab"
+								aria-controls="tab_item-0">
+								<span class="resp-arrow"></span>Product Description
+							</h2>
+							<div class="tab-1 resp-tab-content resp-tab-content-active"
+								aria-labelledby="tab_item-0" style="display: block">
+								<div class="facts">
+									<p>
+										{{ rows.description }}
+									</p>
+									<ul>
+										<li>Research</li>
+										<li>Design and Development</li>
+										<li>Porting and Optimization</li>
+										<li>System integration</li>
+										<li>Verification, Validation and Testing</li>
+										<li>Maintenance and Support</li>
+									</ul>
+								</div>
+							</div>
+							<h2 class="resp-accordion" role="tab" aria-controls="tab_item-1">
+								<span class="resp-arrow"></span>Additional Information
+							</h2>
+							<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
+								<div class="facts">
+									<p>
+										{{ rows.description }}
+									</p>
+									<ul>
+										<li>Multimedia Systems</li>
+										<li>Digital media adapters</li>
+										<li>Set top boxes for HDTV and IPTV Player applications
+											on various Operating Systems and Hardware Platforms</li>
+									</ul>
+								</div>
+							</div>
+							<h2 class="resp-accordion" role="tab" aria-controls="tab_item-2">
+								<span class="resp-arrow"></span>Reviews
+							</h2>
+							<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-2">
+								<div class="facts">
+									<p>
+										{{ rows.description }}
+									</p>
+									<ul>
+										<li>Research</li>
+										<li>Design and Development</li>
+										<li>Porting and Optimization</li>
+										<li>System integration</li>
+										<li>Verification, Validation and Testing</li>
+										<li>Maintenance and Support</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
+					<script type="text/javascript">
+			    $(document).ready(function() {
+			        $('#horizontalTab').easyResponsiveTabs({
+			            type: 'default', //Types: default, vertical, accordion           
+			            width: 'auto', //auto or any width like 600px
+			            fit: true   // 100% fit in a container
+			        });
+			    });
+			   </script>
+				</div>
+			</div>
+			
+			<div class="clearfix"></div>
+		</div>
+
+	</div>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+//quand la page est chargée alors on execute le code dans les balises script
+{%  if prod is defined %}
+$(document).ready(function(){
+	 
+
+	$("#qt-rec").on('blur', function(event){
+		
+		console.log('ok pour on blur' + event.target.value);
+		//event.target.value récupere la valeur modifier
+		//event.source.value récupere la valeur initiale
+		
+		var url = "/caddie/ajouter/{{ prod.id }}/"+event.target.value;
+		$('#url_add').attr('href', url);
+				 
+			});
+	$("#url_add").on('clic', function(event){
+		
+		console.log('ok pour on blur' + event.target.value);
+		//event.target.value récupere la valeur modifier
+		//event.source.value récupere la valeur initiale
+		
+		var url = "/caddie/ajouter/{{ prod.id }}/"+event.target.value;
+		$('#url_add').attr('href', url);
+				 
+			});			
+	});
+
+</script>
+{% endif %}
+{% endblock %}
+
+

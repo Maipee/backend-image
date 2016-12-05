@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+	<div class="product">
+		<h2 class="new">NEW ARRIVALS</h2>
+
+		{% if list_products is defined   %}
+		{% for rows in list_products %}
+		{#toutes les 4 itérations de produits j'insère un clearfix, j'intègre
+		les 4 itérations dans une div pink#}
+		{% if loop.index0 % 4 == 0 %}
+		{% if loop.index0 != 0 %}
+		<div class="clearfix"></div>
+	</div>
+	{% endif %}
+	<div class="pink">
+		{% endif %}
+
+		<div class="col-md-3 box-in-at">
+			<div class=" grid_box portfolio-wrapper">
+				<a href="single.html/{{rows.id}}"> <img src="/{{rows.picture}}"
+					class="img-responsive" alt="">
+				</a>
+			</div>
+			<!---->
+			<div class="grid_1 simpleCart_shelfItem">
+				<a href="#" class="cup item_add"><span class=" item_price">{{rows.price}}
+						€ <i> </i> </span></a>
+			</div>
+			<!---->
+		</div>
+		{% endfor %}
+		<div class="clearfix"></div>
+	</div>
+	{% endif %}
+</div>
+<!---->
+</div>
+{% endblock %}
