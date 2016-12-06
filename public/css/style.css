@@ -1191,12 +1191,12 @@ padding: 2em;
 	font-weight:400;
 } 
 
-.close1,.close2{
+.close{
   background: url('../images/close_1.png') no-repeat 0px 0px;
   cursor: pointer;
   width: 28px;
   height: 28px;
-  position: absolute;
+  position: relative;
   right: 0px;
   top: 0px;
   -webkit-transition: color 0.2s ease-in-out;
