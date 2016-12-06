@@ -33,8 +33,7 @@
     			<br />
     			<div class="white item_price">
     			 	<a href="/profil.html" >profil</a>
-    			</div>	
-				
+    			</div>					
 				
 				{% else %}
 				<div class="white item_price">
@@ -44,28 +43,22 @@
     			<div class="white item_price">
     			 	<a href="/login.html" >login</a>
     			</div>	
-				
-				
+								
 				{% endif %}
 			 </ul>
-			
-			 
+						 
 			</div>
-			
-			
+						
 		 <div class="col-md-9 cart-items">
-            
-		 	
+            	 	
 			 <h1>My Shopping Bag (2)</h1>
-			 
-			 
+			 			 
 			  {% if liste_commande is defined %}
 			  
 			  {% for commande in liste_commande %}
-			  
-				
+			  				
 			 <div class="cart-header{{ loop.index }}">
-				 <div class="close" id="num{{ loop.index }}"> </div>
+				 <div class="close" id="num{{ loop.index }}"></div>
 				 
 				 <div class="cart-sec simpleCart_shelfItem">
 						<div class="cart-item cyc">
@@ -86,8 +79,7 @@
 							
 							</li>
 							
-						</ul>
-						
+						</ul>						
 							 <div class="delivery" id="afficher{{ loop.index }}"><span id="result{{ loop.index }}">
 							 Prix : {{ commande.productprice }} x {{ commande.quantity }} = {{ commande.price }} €
 							 <span>
@@ -98,9 +90,7 @@
 											
 				  </div>
 			 </div>
-			 
-			 
-			
+			 			
                         
              {% endfor %}		
            {% endif %}
@@ -120,8 +110,7 @@
 <script>
 
 
-
-//quand la page est chargé alors on execute le code dans les balises script
+//quand la page est chargée alors on execute le code dans les balises script
 $(document).ready(function(){
 		var new_total = 0;	
      // si liste_commande est definie
@@ -142,12 +131,11 @@ $(document).ready(function(){
 			});
 			//on execute l'ajax qui envoie la route pour faire l'action de supprimer dans la bd
 			$.ajax(url2).done(function(data){
-				
-				
+								
 			});
 		});	  
 		//j'utilise un ecouteur sur l'action click du bouton a l'id #mod(n)	
-		$("#mod{{ loop.index }}").on('click', function(event){
+		$("#qty{{ loop.index }}").on('focusout', function(event){
 			//je recupere la nouvelle quantite 
 			 var quantite = $('#qty{{ loop.index }}').val();	
 			 //je recupere le prix			 
@@ -157,39 +145,56 @@ $(document).ready(function(){
 		   //j'initilaise une variable url pour recuperer la nouvelle quantité dans l'url
 				console.log('try to generate url' + prix);
 		     var url = "/caddie/modifier/{{ commande.idproduct }}/"+quantite;
-			
-			//on execute l'ajax qui envoie la route pour faire l'action de modifier dans la bd
-			console.log(url);
-		     $.ajax(url).done(function(data){
-			     var tot = data;
-//			     	console.log('Attempting to modify caddy : '+url + ' with new total : ' + data);
-		     		//j'enleve les elements dans la balise id="#ptipri(n)"	
- 		   			 $('#total').empty();
-						//a l'interieur je rajoute le nouvel element 
-					 $('#total').prepend(tot+' € ');
-			     	
-			     	
-					  //j'enleve les elements dans la balise id="#resultat(n)"	
-		   			 $('#result{{ loop.index }}').empty();
-						//a l'interieur je rajoute le nouvel element 
-					 $('#result{{ loop.index }}').prepend('Prix : '+prix+' x '+quantite+'  = '+result{{ loop.index }}+' € ');
-				     //j'enleve les elements dans la balise id="#ptipri(n)"	
-		   			 $('#ptipri{{ loop.index }}').empty();
-						//a l'interieur je rajoute le nouvel element 
-					 $('#ptipri{{ loop.index }}').prepend(result{{ loop.index }}+' € ');
+		     var url2 = "/caddie/supprimer/{{ commande.idproduct }}";
+		     console.log(url2);
+			if (quantite==0){
+				 $.ajax(url2).done(function(data){
+						$('.cart-header{{ loop.index }}').fadeOut('slow', function(c){
+							//alert(data);
+							//et on l'efface completement de la page 	
+							$('.cart-header{{ loop.index }}').remove();
+							$('#ptipri{{ loop.index }}').empty();
+							$('#lab{{ loop.index }}').empty();
+							$('#total').empty();
+							console.log('data'+data);
+							$('#total').prepend(data);							
+						});
+				})
+			}
+			else{
+
+				//on execute l'ajax qui envoie la route pour faire l'action de modifier dans la bd
+				console.log(url);
+			     $.ajax(url).done(function(data){
+				     var tot = data;
+				     //console.log('Attempting to modify caddy : '+url + ' with new total : ' + data);
+			     		//j'enleve les elements dans la balise id="#ptipri(n)"	
+	 		   			 $('#total').empty();
+							//a l'interieur je rajoute le nouvel element 
+						 $('#total').prepend(tot+' € ');
+				     	
+				     	
+						  //j'enleve les elements dans la balise id="#resultat(n)"	
+			   			 $('#result{{ loop.index }}').empty();
+							//a l'interieur je rajoute le nouvel element 
+						 $('#result{{ loop.index }}').prepend('Prix : '+prix+' x '+quantite+'  = '+result{{ loop.index }}+' € ');
+					     //j'enleve les elements dans la balise id="#ptipri(n)"	
+			   			 $('#ptipri{{ loop.index }}').empty();
+							//a l'interieur je rajoute le nouvel element 
+						 $('#ptipri{{ loop.index }}').prepend(result{{ loop.index }}+' € ');
 
 
-					//j'enleve les elements dans la balise id="#ptipri(n)"	
-		   			 $('#lab{{ loop.index }}').empty();
-						//a l'interieur je rajoute le nouvel element 
-					 $('#lab{{ loop.index }}').prepend('Produit '+{{ loop.index }}+' x '+quantite);	
-					});
+						//j'enleve les elements dans la balise id="#ptipri(n)"	
+			   			 $('#lab{{ loop.index }}').empty();
+							//a l'interieur je rajoute le nouvel element 
+						 $('#lab{{ loop.index }}').prepend('Produit '+{{ loop.index }}+' x '+quantite);	
+						});
+				}
 
-		     	
-			     
-				
-			
+
 			});
+
+		
 
 		//fin de la boucle for en twig
 		
