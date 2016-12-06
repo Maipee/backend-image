@@ -52,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				
 				
 				{% if username is defined %}	
-				<li ><a href="/logout.html" >logout <span style="color:#eeeeee">({{ username }})</span></a></li>
+				<li ><a href="/logout.html" >logout <span style="color:#eeeeee">({{ username|capitalize }})</span></a></li>
 				<li ><a href="/profil.html" >my profil</a></li>
 				<li ><a href="/admin" >admin</a></li>
 				{% else %}
