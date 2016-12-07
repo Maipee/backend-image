@@ -173,7 +173,10 @@ $(document).ready(function(){
 	$("#url_add").on('click', function(event){
 		event.preventDefault();
 		$.ajax($('#url_add').attr('href')).done(function(data){
-			console.log('success');									
+			console.log('success');
+		$('#simpleCart_quantity').empty();
+			//a l'interieur je rajoute le nouvel element
+		$('#simpleCart_quantity').prepend( data );								
 		});
 	});
 });

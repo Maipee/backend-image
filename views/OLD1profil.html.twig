@@ -53,7 +53,7 @@
     							class="textbox" value="{{ profil.lastname }}" />
     					</div>
     					<div>
-    						<span>Tel: +33</span> <input name="telephone" type="text"
+    						<span>Tel</span> <input name="telephone" type="text"
     							class="textbox" value="{{ profil.phone }}" />
     					</div>
     					
@@ -63,20 +63,16 @@
     					
     					<div id="checkbox" style="margin-top:40px; margin-bottom:40px;">
         					{% for addType in addTypeList %}
-        							<input type="checkbox" id="chec{{ loop.index }}" {% if addType == "domicile" %}checked="checked" class="afficher" disabled{% else %} class="cacher" {% endif %} name="checkbox{{addType}}" > {{addType}} </input>
+        							<input type="checkbox" id="chec{{ loop.index }}" {% if addType == "domicile" %}checked="checked" class="afficher" disabled {%  else %} class="cacher" {% endif %} name="checkbox{{addType}}" > {{addType}} </input>
         					{% endfor %}
     					</div>
     					<div class="panel-group" id="accordion">
     						{% for addType in addTypeList %}
         						<div class="panel panel-default" id="aff{{ loop.index }}">
         							<div class="panel-heading">
-        								<h4 class="panel-title" style="width: 90%; float: left">
+        								<h4 class="panel-title">
         								<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}"> {{ addType|capitalize }}</a>
         								</h4>
-        								{% if addType != "domicile" %}
-        								<a href="/supprimeradresse/{{ addType }}"><input type="button" name="suppraddr{{ loop.index }}" id="suppraddr{{ loop.index }}" value="Delete" /></a>
-        								{% endif %}
-        								<div style="clear:both"></div>
         							</div>		
         									
         							<div id="collapse{{ loop.index }}" class="panel-collapse collapse in">
@@ -195,42 +191,19 @@
 
 {% block javascripts %} 
 <script>
-
 $(document).ready(function(){
-
-    {% for addType in addTypeList %}
-    
-    	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
-    	$('#chec{{ loop.index }}').on('click', function() {
-    			$('#aff{{ loop.index }}').toggle();
-    			});
-    
-    {% endfor %}
-
-    //si le profil a une adresse de facturation (facturation ==1), on coche la checkbox et on affiche la div
-    {% if facturation == 1 %}
-    	$('#chec2').attr('checked', 'checked');
-    	$('#aff2').show();
-    {% else %}
-   		$('#aff2').hide();
-    {% endif %}
-
-  //si le profil a une adresse de courrier (facturation ==1), on coche la checkbox et on affiche la div
-    {% if courrier == 1 %}
-        $('#chec3').attr('checked', 'checked');
-    	$('#aff3').show();
-    {% else %}
-    	$('#aff3').hide();
-    {% endif %}
-  //si le profil a une adresse de livraison (facturation ==1), on coche la checkbox et on affiche la div
-    {% if livraison == 1 %}
-        $('#chec4').attr('checked', 'checked');
-    	$('#aff4').show();
-    {% else %}
-    	$('#aff4').hide();
-    {% endif %}
-        
+	
+	$("#accordion>div:not(:first)").hide();//on cache les onglets sauf l'onglet domicile
 });
+{% for addType in addTypeList %}
+
+	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
+	$('#chec{{ loop.index }}').on('click', function() {
+			$('#aff{{ loop.index }}').toggle();
+			});
+
+{% endfor %}
+
 </script>
 {% endblock %}
 
