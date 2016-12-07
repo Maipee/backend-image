@@ -1,76 +1,134 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-	<div class="container">
-		<div class="contact">
-			<h2>PROFIL</h2>
-			<div class="contact-in">
-    			<div class=" col-md-3 contact-right"></div>
-    			<div class=" col-md-9 contact-left">
-    				<form name="profil" action="/profil.html" method="post">
-    					<div style="margin-top: 1em;">
-    						<h3>Your informations</h3>
-    					</div>
-    					{% for profil in allProfil %}
-    					<div>
-    						<span>Username</span>
-    						<input name="username" type="text" class="textbox" value="{{ profil.username }}" />
-    					</div>
-    					<div>
-    						<span>Password</span>
-    						<input name="password" type="password" class="textbox" value="{{ profil.password }}" />
-    					</div>
-    					<div>
-    						<span>Civility</span>
-    						<input name="civilite" type="radio" value="Monsieur" 
-    						{% if profil.civilite == 'Monsieur' %} checked {% endif %}> Mister&nbsp;&nbsp;&nbsp;
-    						<input name="civilite" type="radio" value="Madame" {% if profil.civilite == 'Madame' %} checked {% endif %}> Miss
-    					</div>
-    					<div>
-    						<span>Firstname</span>
-    						<input name="prenom" type="text" class="textbox" value="{{ profil.prenom }}" />
-    					</div>
-    					<div>
-    						<span>Lastname</span>
-    						<input name="nom" type="text" class="textbox" value="{{ profil.nom }}" />
-    					</div>
-    					<div>
-    						<span>E-Mail</span>
-    						<input name="email" type="text" class="textbox" value="{{ profil.email }}" />
-    					</div>
-    					<div>
-    						<span>Tel</span>
-    						<input name="telephone" type="text" class="textbox" value="{{ profil.telephone }}" />
-    					</div>
-    					<div style="margin-top: 1em;">
-    						<h3>Adress</h3>
-    					</div>
-    					<div>
-    						<span>Number</span>
-    						<input name="numero" type="text" class="textbox" value="{{ profil.numero }}" />
-    					</div>
-    					<div>
-    						<span>Street</span>
-    						<input name="rue" type="text" class="textbox" value="{{ profil.rue }}" />
-    					</div>
-    					<div>
-    						<span>Postal Code</span>
-    						<input name="cp" type="text" class="textbox" value="{{ profil.cp }}" />
-    					</div>
-    					<div>
-    						<span>Town</span>
-    						<input name="ville" type="text" class="textbox" value="{{ profil.ville }}" />
-    					</div>
-    					<div>
 
-    					</div>
-    					{% endfor %}
-    					<div>
-    						<input type="submit" value="Submit">
-    					</div>
-    				</form>
-    			</div>
-    		</div>
-			<div class="clearfix"></div>
+{% set addTypeList = ["domicile", "facturation", "courrier", "livraison"] %}
+					
+{% block body %}
+
+
+<div class="container">
+	<div class="contact">
+		<h2>PROFIL</h2>
+		<div class="contact-in">
+			<div class=" col-md-3 contact-right"></div>
+			<div class=" col-md-9 contact-left">
+				<form name="profil" action="/profil.html" method="post">
+					<div style="margin: 2em 0 1em 0;">
+						<h3>Login informations</h3>
+					</div>
+					{% for profil in allProfil %}
+					<div>
+						<span>E-Mail : {{ profil.email }}</span>
+					</div>
+					<div>
+						<label style="font-weight: normal;"><span>Password
+								: </span></label> <input name="password" type="password" class="textbox"
+							value="{{ profil.password }}" />
+					</div>
+					<div>
+						<span>Username&nbsp;&nbsp;&nbsp;<em>*need to log out
+								to apply modification</em></span> <input name="username" type="text"
+							class="textbox" value="{{ profil.username }}" />
+					</div>
+					<div style="margin: 2em 0 1em 0;">
+						<h3>Personal informations</h3>
+					</div>
+					<div>
+						<span>Civility</span> <input name="civilite" type="radio"
+							value="Monsieur" {% if profil.civility == 'Monsieur' %} checked
+							{% endif %}> Mister&nbsp;&nbsp;&nbsp; <input
+							name="civilite" type="radio" value="Madame"
+							{% if profil.civility == 'Madame' %} checked {% endif %}>
+						Miss
+					</div>
+					<div>
+						<span>Firstname</span> <input name="prenom" type="text"
+							class="textbox" value="{{ profil.firstname }}" />
+					</div>
+					<div>
+						<span>Lastname</span> <input name="nom" type="text"
+							class="textbox" value="{{ profil.lastname }}" />
+					</div>
+					<div>
+						<span>Tel</span> <input name="telephone" type="text"
+							class="textbox" value="{{ profil.phone }}" />
+					</div>
+					
+					<div style="margin: 2em 0 1em 0;">
+						<h3>Adress information</h3>
+					</div>
+					
+					<div id="checkbox" style="margin-top:40px; margin-bottom:40px;">
+					{% for addType in addTypeList %}
+							<input type="checkbox" id="chec{{ loop.index }}" {% if addType == "domicile" %}checked="checked" class="afficher" disabled {%  else %} class="cacher" {% endif %} name="checkbox{{addType}}" > {{addType}} </input>
+					{% endfor %}
+					</div>
+					<div class="panel-group" id="accordion">
+						{% for addType in addTypeList %}
+						<div class="panel panel-default" id="aff{{ loop.index }}">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion"
+										href="#collapse{{ loop.index }}"> {{ addType|capitalize }}</a>
+								</h4>
+							</div>
+							
+							<div id="collapse{{ loop.index }}"
+								class="panel-collapse collapse in">
+								
+								<div class="panel-body">
+								
+									<div>
+										<span>Number</span> <input name="numero{{ addType }}" type="text"
+											class="textbox" value="{{ profil.num }}" />
+									</div>
+									<div>
+										<span>Street</span> <input name="rue{{ addType }}" type="text"
+											class="textbox" value="{{ profil.street }}" />
+									</div>
+									<div>
+										<span>Postal Code</span> <input name="CP{{ addType }}" type="text"
+											class="textbox" value="{{ profil.pc }}" />
+									</div>
+									<div>
+										<span>Town</span> <input name="ville{{ addType }}" type="text"
+											class="textbox" value="{{ profil.city }}" />
+									</div>
+									<div style="height: 1em;">
+
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+					{% endfor %}
+					<div>
+						<input type="submit" value="Submit">
+					</div>
+				</form>
+			</div>
 		</div>
+		<div class="clearfix"></div>
 	</div>
+</div>
+
+
 {% endblock %}
+
+{% block javascripts %} 
+<script>
+$(document).ready(function(){
+	$("#accordion>div:not(:first)").hide();//on cache les onglets sauf l'onglet domicile
+});
+{% for addType in addTypeList %}
+
+	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
+	$('#chec{{ loop.index }}').on('click', function() {
+			$('#aff{{ loop.index }}').toggle();
+			});
+
+{% endfor %}
+</script>
+{% endblock %}
+
+
