@@ -65,10 +65,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="/404.html">about us</a></li>
 						<li><a href="/contact.html"> contact us</a></li>
 
+
                         {% if username is defined %}	
         				<li ><a href="/logout.html" >logout <span style="color:#eeeeee">({{ username }})</span></a></li>
         				<li ><a href="/profil.html" >my profil</a></li>
-        				<li ><a href="/admin" >admin</a></li>
+        				{% if role is defined%}
+        				    {% if role=='ROLE_ADMIN'%}
+        					<li ><a href="/admin" >admin</a></li>
+        					{% endif %}
+        					{% endif %}
         				{% else %}
         				<li ><a href="/login.html" >login</a></li>
         				<li ><a href="/register.html" >register</a></li>
@@ -128,7 +133,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<h3>
 								<div class="total">
 									<span class="simpleCart_total"></span> (<span
-										id="simpleCart_quantity" class="simpleCart_quantity">{% if nbr_items is defined %}nbr_items{% else %}0{% endif %}</span>
+										id="simpleCart_quantity" class="simpleCart_quantity">{% if nbitem is defined %}{{ nbitem }}{% else %}0{% endif %}</span>	
 									items)
 								</div>
 								<img src="/images/cart.png" alt="" />

@@ -50,8 +50,12 @@
 			</div>
 						
 		 <div class="col-md-9 cart-items">
-            {% if liste_commande is defined %} 	
-			 <h1>My Shopping Bag ({{ commande.quantity }})</h1>
+            	{% if nbitem is defined %}	 	
+			 <h1>My Shopping Bag ({{ nbitem }})</h1>
+			 	 {% else %}
+			  <h1>My Shopping Bag (0)</h1>	 
+			 	 {% endif %}		 
+			  {% if liste_commande is defined %}
 			  
 			  {% for commande in liste_commande %}
 			  				
@@ -63,7 +67,7 @@
 							 <img src="{{ commande.picture }}" class="img-responsive" alt=""/>
 						</div>
 					   <div class="cart-item-info">
-						<h3><a href="#">{{ commande.label}}</a></h3>
+						<h3><a href="#">{{ commande.label }}</a></h3>
 						<ul class="qty" >
 							
 							<li>
@@ -106,7 +110,6 @@
 {% block javascripts %}
 
 <script>
-
 
 //quand la page est chargée alors on execute le code dans les balises script
 $(document).ready(function(){
@@ -169,8 +172,7 @@ $(document).ready(function(){
 			     		//j'enleve les elements dans la balise id="#ptipri(n)"	
 	 		   			 $('#total').empty();
 							//a l'interieur je rajoute le nouvel element 
-						 $('#total').prepend(tot+' € ');
-				     	
+						 $('#total').prepend(tot+' € ');				     	
 				     	
 						  //j'enleve les elements dans la balise id="#resultat(n)"	
 			   			 $('#result{{ loop.index }}').empty();
@@ -188,8 +190,6 @@ $(document).ready(function(){
 						 $('#lab{{ loop.index }}').prepend('Produit '+{{ loop.index }}+' x '+quantite);	
 						});
 				}
-
-
 			});
 
 		

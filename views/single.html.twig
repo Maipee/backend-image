@@ -27,7 +27,7 @@
 		<div class="single">
 			<div class="col-md-9 top-in-single">
 				<div class="col-md-5 single-top">
-				{% for rows in products %}
+					{% for rows in products %}
 					<img class="etalage_thumb_image img-responsive"
 						src="/{{ rows.picture }}"> {# <ul id="etalage">#} {# <li><a
 					href="optionallink.html"> <img #} {# class="etalage_thumb_image
@@ -46,8 +46,8 @@
 
 				</div>
 
-				
-				
+
+
 				<div class="col-md-7 single-top-in">
 					<div class="single-para">
 						<h4>
@@ -164,12 +164,9 @@
 			<div class="clearfix"></div>
 		</div>
 
-
 	</div>
 
 </div>
-
-
 
 {% endblock %}
 
@@ -193,7 +190,7 @@ $(document).ready(function(){
 	$("#url_add").on('click', function(event){
 		event.preventDefault();
 		$.ajax($('#url_add').attr('href')).done(function(data){
-			console.log('success');			
+			console.log('success');									
 		});
 	});
 });
