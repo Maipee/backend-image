@@ -50,10 +50,8 @@
 			</div>
 						
 		 <div class="col-md-9 cart-items">
-            	 	
+            {% if liste_commande is defined %} 	
 			 <h1>My Shopping Bag ({{ commande.quantity }})</h1>
-			 			 
-			  {% if liste_commande is defined %}
 			  
 			  {% for commande in liste_commande %}
 			  				
