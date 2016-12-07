@@ -18,11 +18,11 @@
     					</div>
     					<div>
     						<label style="font-weight: normal;"><span>Password : </span></label>
-    						<input name="password" type="password" class="textbox" style="margin-left:6% ;" />
+    						<input id="password" name="password" type="password" class="textbox"  placeholder="Password" style="margin-left:6% ;" />
     					</div>
     					<div>
     						<label style="font-weight: normal;"><span>Repeat password : </span></label>
-    						<input name="reppassword" type="password" class="textbox"  />
+    						<input id="confirm_password" name="reppassword" type="password" class="textbox"  placeholder="Confirm Password" />
     					</div>
     					<div>
     						<span>Username</span>
@@ -111,5 +111,19 @@ $(document).ready(function(){
 			});
 
 {% endfor %}
+//confirmation du password
+var password = document.getElementById("password")
+, confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+if(password.value != confirm_password.value) {
+  confirm_password.setCustomValidity("Passwords Don't Match");
+} else {
+  confirm_password.setCustomValidity('');
+}
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
 </script>
 {% endblock %}
