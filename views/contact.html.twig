@@ -20,15 +20,15 @@
 					    <form action="/contact.html" method="POST">
 					    	<div>
 						    	<span>Name</span>
-						    	<input name="name" type="text" class="textbox">
+						    	<input name="name" type="text" class="textbox" maxlength="32" required>
 						    </div>
 						    <div>
 						    	<span>E-Mail</span>
-						    	<input name="email" type="text" class="textbox">
+						    	<input name="email" class="textbox" type="email" maxlength="32" required>
 						    </div>
 						    <div>
 						    	<span>Subject</span>
-						    	<textarea name="subject"> </textarea>
+						    	<textarea name="subject"  maxlength="200" required> </textarea>
 						    </div>
 						   <div>
 						   		<input type="submit" value="Submit">

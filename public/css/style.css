@@ -805,7 +805,7 @@ a.go:hover{
 	font-size:1.7em;
 	margin-top: 0px;	
 }
-.contact-left input[type="text"],.contact-left textarea{
+.contact-left input[type="text"],.contact-left textarea,.contact-left input[type="email"]{
 	padding:14px;
 	display:block;
 	width:98%;
