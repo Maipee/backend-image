@@ -56,7 +56,7 @@
 		 <div class="col-md-9 cart-items">
             
 		 	
-			 <h1>My Shopping Bag (2)</h1>
+			 <h1>My Shopping Bag ({{ commande.quantity }})</h1>
 			 
 			 
 			  {% if liste_commande is defined %}
@@ -119,8 +119,6 @@
 
 <script>
 
-
-
 //quand la page est chargé alors on execute le code dans les balises script
 $(document).ready(function(){
 		var new_total = 0;	
@@ -162,13 +160,11 @@ $(document).ready(function(){
 			console.log(url);
 		     $.ajax(url).done(function(data){
 			     var tot = {{ data|json_encode() }}.total;
-//			     	console.log('Attempting to modify caddy : '+url + ' with new total : ' + data);
+			     //console.log('Attempting to modify caddy : '+url + ' with new total : ' + data);
 		     		//j'enleve les elements dans la balise id="#ptipri(n)"	
  		   			 $('#total').empty();
 						//a l'interieur je rajoute le nouvel element 
-					 $('#total').prepend(tot+' € ');
-			     	
-			     	
+					 $('#total').prepend(tot+' € ');			     	
 					  //j'enleve les elements dans la balise id="#resultat(n)"	
 		   			 $('#result{{ loop.index }}').empty();
 						//a l'interieur je rajoute le nouvel element 
@@ -183,12 +179,7 @@ $(document).ready(function(){
 		   			 $('#lab{{ loop.index }}').empty();
 						//a l'interieur je rajoute le nouvel element 
 					 $('#lab{{ loop.index }}').prepend('Produit '+{{ loop.index }}+' x '+quantite);	
-					});
-
-		     	
-			     
-				
-			
+					});							
 			});
 
 		//fin de la boucle for en twig
