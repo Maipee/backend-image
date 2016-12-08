@@ -17,21 +17,22 @@
 				    </div>
 				<div class=" col-md-9 contact-left">
 				  
-					    <form action="/contact.html" method="POST">
+					    <form action="/contact.html" method="POST" id="form1">
 					    	<div>
 						    	<span>Name</span>
 						    	<input name="name" type="text" class="textbox" maxlength="32" required>
 						    </div>
 						    <div>
 						    	<span>E-Mail</span>
-						    	<input name="email" class="textbox" type="email" maxlength="32" required>
+					    		<input name="email" class="textbox" type="email" maxlength="32" required ">
+{# 						    	<input name="email" class="textbox"  maxlength="32" required>#}
 						    </div>
 						    <div>
 						    	<span>Subject</span>
-						    	<textarea name="subject"  maxlength="200" required> </textarea>
+						    	<textarea name="subject"  maxlength="200" required > </textarea>
 						    </div>
 						   <div>
-						   		<input type="submit" value="Submit">
+						   		<input id="submit" type="submit" value="Submit">
 								
 						  </div>
 					    </form>
@@ -45,8 +46,43 @@
       		</div>
 	</div>
 		<div class="map">
-				 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d505145.6949089349!2d115.07157704999999!3d-8.455471450000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd22f7520fca7d3%3A0x2872b62cc456cd84!2sBali%2C+Indonesia!5e0!3m2!1sen!2sin!4v1418170815897"></iframe>
+				 
 				</div>
-		</div>
-</div>
+		
+{% endblock %}
+
+{% block javascripts %}
+
+
+<script>
+
+$(document).ready(function(){
+	
+	$('#submit').on('click', function(event){
+	event.preventDefault();
+	var url ="/contact.html";
+		console.log(url);
+		//$.post(url).done(function(data){
+		//	console.log(data);
+		//	$('#dbmessage').empty();
+		//	$('#dbmessage').prepend(data);
+		$.ajax({
+				type: 'POST',
+				url: url,
+				data: $("#form1").serialize(),
+				success: function(response) {
+				$('#dbmessage').empty();
+				$('#dbmessage').prepend(response);
+				
+				console.log(response);
+				}
+				
+			
+		});
+
+	});
+
+});
+</script>
+
 {% endblock %}

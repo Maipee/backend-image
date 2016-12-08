@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+{% set addTypeList = ["domicile", "facturation", "courrier", "livraison"] %}
+{% block body %}
+	<div class="container">
+		<div class="contact">
+			<h2>REGISTER</h2>
+			<div class="contact-in">
+    			<div class=" col-md-3 contact-right">
+				</div>
+    			<div class=" col-md-9 contact-left">
+    				<form name="register" action="/register.html" method="post">
+    					<div style="margin: 2em 0 1em 0;">
+    						<h3>Login informations</h3>
+    					</div>    					
+    					<div>
+    						<span>Email&nbsp;&nbsp;&nbsp;</span>
+    						<input type="email" name="email" class="textbox" maxlength="60" required />
+    					</div>
+    					<div>
+    						<label style="font-weight: normal;"><span>Password : </span></label>
+    						<input id="password" name="password" type="password" class="textbox contact-left"  placeholder="Password" maxlength="64" style="margin-left:6%" />
+    					</div>
+    					<div>
+    						<label style="font-weight: normal;"><span>Repeat password : </span></label>
+    						<input id="confirm_password" name="reppassword" type="password" class="textbox" maxlength="64" placeholder="Confirm Password" />
+    					</div>
+    					<div>
+    						<span>Username</span>
+    						<input name="username" type="text" class="textbox" maxlength="25" required />
+    					</div>		
+    					<div style="margin: 2em 0 1em 0;">
+    						<h3>Personal informations</h3>
+    					</div>	
+    					<div>
+    						<span>Civility</span>
+    						<input name="civilite" type="radio" value="Monsieur" checked /> Mister&nbsp;&nbsp;&nbsp;
+    						<input name="civilite" type="radio" value="Madame" /> Miss
+    					</div>
+    					<div>
+    						<span>Firstname</span>
+    						<input name="prenom" type="text" class="textbox" maxlength="32" required />
+    					</div>
+    					<div>
+    						<span>Lastname</span>
+    						<input name="nom" type="text" class="textbox" maxlength="64" required />
+    					</div>
+    					<div>
+    						<span>Tel: +33</span>
+    						<input name="telephone" type="text" maxlength="9"  class="textbox" required />
+    					</div>
+    					<div style="margin: 2em 0 1em 0;">
+    						<h3>Adress information</h3>
+    					</div>
+    					<div id="checkbox" style="margin-top:40px; margin-bottom:40px;">
+					{% for addType in addTypeList %}
+							<input type="checkbox" id="chec{{ loop.index }}" {% if addType == "domicile" %}checked="checked" class="afficher" disabled {%  else %} class="cacher" {% endif %} name="checkbox{{addType}}" > {{addType}} </input>
+					{% endfor %}
+						</div>
+							<div class="panel-group" id="accordion">
+						{% for addType in addTypeList %}
+								<div class="panel panel-default" id="aff{{ loop.index }}">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}"> {{ addType|capitalize }}</a>
+										</h4>
+									</div>							
+									<div id="collapse{{ loop.index }}"
+								class="panel-collapse collapse in">								
+										<div class="panel-body">								
+											<div>
+												<span>Number</span> <input name="numero{{ addType }}" type="text" class="textbox" maxlength="16" value="" {% if addType == "domicile" %}required{% endif %} />
+											</div>
+											<div>
+												<span>Street</span> <input name="rue{{ addType }}" type="text" class="textbox" maxlength="128" value="" {% if addType == "domicile" %}required{% endif %} />
+											</div>
+											<div>
+												<span>Postal Code</span> <input name="CP{{ addType }}" type="text" class="textbox" maxlength="5" value="" {% if addType == "domicile" %}required{% endif %} />
+											</div>
+											<div>
+												<span>Town</span> <input name="ville{{ addType }}" type="text" class="textbox" maxlength="32" value="" {% if addType == "domicile" %}required{% endif %} />
+											</div>
+											<div style="height: 1em;">
+
+											</div>
+										</div>
+									</div>
+								</div>
+						{% endfor %}
+							</div>
+    				<div>
+    					<input type="submit" value="Submit">
+    				</div>
+    				</form>
+    			</div>
+    		</div>
+			<div class="clearfix">
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %} 
+<script>
+$(document).ready(function(){
+	$("#accordion>div:not(:first)").hide();//on cache les onglets sauf l'onglet domicile
+});
+{% for addType in addTypeList %}
+
+	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
+	$('#chec{{ loop.index }}').on('click', function() {
+			$('#aff{{ loop.index }}').toggle();
+			});
+
+{% endfor %}
+//confirmation du password
+var password = document.getElementById("password")
+, confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+if(password.value != confirm_password.value) {
+  confirm_password.setCustomValidity("Passwords Don't Match");
+} else {
+  confirm_password.setCustomValidity('');
+}
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
+{% endblock %}
