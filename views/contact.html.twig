@@ -25,7 +25,6 @@
 						    <div>
 						    	<span>E-Mail</span>
 					    		<input name="email" class="textbox" type="email" maxlength="32" required ">
-{# 						    	<input name="email" class="textbox"  maxlength="32" required>#}
 						    </div>
 						    <div>
 						    	<span>Subject</span>
@@ -59,7 +58,7 @@
 $(document).ready(function(){
 	
 	$('#submit').on('click', function(event){
-	event.preventDefault();
+	//event.preventDefault();
 	var url ="/contact.html";
 		console.log(url);
 		//$.post(url).done(function(data){
