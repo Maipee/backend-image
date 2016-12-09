@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
 {% set addTypeList = ["domicile", "facturation", "courrier", "livraison"] %}
+
 {% block body %}
 	<div class="container">
 		<div class="contact">
-			<h2>REGISTER</h2>
+			<h2 id="h2">REGISTER</h2>
 			<div class="contact-in">
     			<div class=" col-md-3 contact-right">
 				</div>
     			<div class=" col-md-9 contact-left">
-    				<form name="register" action="/register.html" method="post">
+    			
+    			
+    				<div id="messageerreur"></div>
+    	
+    			
+    				<form id='form1' action="/register.html" method="post">
     					<div style="margin: 2em 0 1em 0;">
     						<h3>Login informations</h3>
     					</div>    					
@@ -53,43 +59,43 @@
     					</div>
     					<div id="checkbox" style="margin-top:40px; margin-bottom:40px;">
 					{% for addType in addTypeList %}
-							<input type="checkbox" id="chec{{ loop.index }}" {% if addType == "domicile" %}checked="checked" class="afficher" disabled {%  else %} class="cacher" {% endif %} name="checkbox{{addType}}" > {{addType}} </input>
+							<input type="checkbox" id="chec{{ loop.index }}" {% if addType == "domicile" %}checked="checked" class="afficher" disabled {% else %} class="cacher" {% endif %} name="checkbox{{addType}}" > {{addType}} </input>
 					{% endfor %}
 						</div>
 							<div class="panel-group" id="accordion">
-						{% for addType in addTypeList %}
-								<div class="panel panel-default" id="aff{{ loop.index }}">
-									<div class="panel-heading">
-										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}"> {{ addType|capitalize }}</a>
-										</h4>
-									</div>							
-									<div id="collapse{{ loop.index }}"
-								class="panel-collapse collapse in">								
-										<div class="panel-body">								
-											<div>
-												<span>Number</span> <input name="numero{{ addType }}" type="text" class="textbox" maxlength="16" value="" {% if addType == "domicile" %}required{% endif %} />
-											</div>
-											<div>
-												<span>Street</span> <input name="rue{{ addType }}" type="text" class="textbox" maxlength="128" value="" {% if addType == "domicile" %}required{% endif %} />
-											</div>
-											<div>
-												<span>Postal Code</span> <input name="CP{{ addType }}" type="text" class="textbox" maxlength="5" value="" {% if addType == "domicile" %}required{% endif %} />
-											</div>
-											<div>
-												<span>Town</span> <input name="ville{{ addType }}" type="text" class="textbox" maxlength="32" value="" {% if addType == "domicile" %}required{% endif %} />
-											</div>
-											<div style="height: 1em;">
-
-											</div>
-										</div>
-									</div>
-								</div>
-						{% endfor %}
+						        {% for addType in addTypeList %}
+    								<div class="panel panel-default" id="aff{{ loop.index }}">
+    									<div class="panel-heading">
+    										<h4 class="panel-title">
+    											<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}"> {{ addType|capitalize }}</a>
+    										</h4>
+    									</div>							
+    									<div id="collapse{{ loop.index }}"
+    								class="panel-collapse collapse in">								
+    										<div class="panel-body">								
+    											<div>
+    												<span>Number</span> <input name="numero{{ addType }}" type="text" class="textbox" maxlength="16" value="" {% if addType == "domicile" %}required{% endif %} />
+    											</div>
+    											<div>
+    												<span>Street</span> <input name="rue{{ addType }}" type="text" class="textbox" maxlength="128" value="" {% if addType == "domicile" %}required{% endif %} />
+    											</div>
+    											<div>
+    												<span>Postal Code</span> <input name="CP{{ addType }}" type="text" class="textbox" maxlength="5" value="" {% if addType == "domicile" %}required{% endif %} />
+    											</div>
+    											<div>
+    												<span>Town</span> <input name="ville{{ addType }}" type="text" class="textbox" maxlength="32" value="" {% if addType == "domicile" %}required{% endif %} />
+    											</div>
+    											<div style="height: 1em;">
+    
+    											</div>
+    										</div>
+    									</div>
+    								</div>
+						        {% endfor %}
 							</div>
-    				<div>
-    					<input type="submit" value="Submit">
-    				</div>
+            				<div>
+            					<input type="submit" id="submit" value="Submit" />
+            				</div>
     				</form>
     			</div>
     		</div>
@@ -100,30 +106,47 @@
 {% endblock %}
 {% block javascripts %} 
 <script>
-$(document).ready(function(){
-	$("#accordion>div:not(:first)").hide();//on cache les onglets sauf l'onglet domicile
-});
-{% for addType in addTypeList %}
+    $(document).ready(function(){
 
-	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
-	$('#chec{{ loop.index }}').on('click', function() {
-			$('#aff{{ loop.index }}').toggle();
-			});
+    	$("#accordion>div:not(:first)").hide();//on cache les onglets sauf l'onglet domicile
 
-{% endfor %}
-//confirmation du password
-var password = document.getElementById("password")
-, confirm_password = document.getElementById("confirm_password");
+		$('#submit').on('click', function(event){
+			event.preventDefault();
+			$.ajax({
+				type: 'POST',
+				url: "/register.html",
+				data: $("#form1").serialize(),
+				success: function(response) {
+				$('#messageerreur').empty();
+				$('#messageerreur').prepend('<p style="color: red"><em>'+response+'</em></p>');	
+							
+				console.log(response);
+				}			
+		});
+			$("html, body").animate({ scrollTop: 0 }, 600);
+	});
+ 
+    {% for addType in addTypeList %}
+    	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
+    	$('#chec{{ loop.index }}').on('click', function() {
+    			$('#aff{{ loop.index }}').toggle();
+    			});    
+    {% endfor %}
 
-function validatePassword(){
-if(password.value != confirm_password.value) {
-  confirm_password.setCustomValidity("Passwords Don't Match");
-} else {
-  confirm_password.setCustomValidity('');
-}
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
+    //confirmation du password
+    var password = document.getElementById("password")
+    , confirm_password = document.getElementById("confirm_password");
+    
+    function validatePassword(){
+        if(password.value != confirm_password.value) {
+          confirm_password.setCustomValidity("Passwords Don't Match");
+        } 
+        else {
+          confirm_password.setCustomValidity('');
+        }
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+    });  	    
 </script>
 {% endblock %}
