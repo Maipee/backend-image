@@ -9,6 +9,7 @@ var routing = require('routing');
 var caddierouting = require('caddierouting');
 var df = require('dateformat');
 var cfg = require('config');
+var mailrouting= require ('emailrouting');
 
 //on appel le module qui s'occupe des routes admin
 var admin = require('admin');
@@ -51,11 +52,16 @@ app.use("/",routing);
 //app.use("/",caddierouting);
 app.use("/",caddierouting);
 
+//envoi des mails
+app.use("/",mailrouting);
+
 //gestion de la page 404
 app.use(function (req,resp){
 		if(typeof req.user=='undefined'){
 			resp.status(404).render('404.html.twig');}
 			else {resp.status(404).render('404.html.twig',{"username":req.user.username})};						
 });
+
+
 
 app.listen(8088);

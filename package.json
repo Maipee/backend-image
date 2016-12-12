@@ -1,5 +1,5 @@
 {
-  "name": "eBoutique",
+  "name": "eboutique",
   "version" : "0.0.1",
   "scripts" : {"start":"app.js"},
   "dependencies" : {
