@@ -15,11 +15,15 @@
 		<div class="contact-in">
 			<div class=" col-md-3 contact-right"></div>
 			<div class=" col-md-9 contact-left">
-				<form name="profil" action="/profil.html" method="post">
+			<div id="messageerreur"></div>
+				<form id='form1' name="profil" action="/profil.html" method="post">
 					<div style="margin: 2em 0 1em 0;">
 						<h3>Login informations</h3>
 					</div>
 					{% for profil in allProfil %}
+    					<div>
+    						<span>Username : {{ profil.username }}</span>
+    					</div>
     					<div>
     						<span>E-Mail : {{ profil.email }}</span>
     					</div>
@@ -29,10 +33,10 @@
     							value="{{ profil.password }}" maxlength="64" required />
     					</div>
     					<div>
-    						<span>Username&nbsp;&nbsp;&nbsp;<em>*need to log out
-    								to apply modification</em></span> <input name="username" type="text"
-    							class="textbox" value="{{ profil.username }}" maxlength="25" required />
+    						<label style="font-weight: normal;"><span>Repeat password : </span></label>
+    						<input id="confirm_password" name="reppassword" type="password" class="textbox" value="{{ profil.password }}" maxlength="64" placeholder="Confirm Password" />
     					</div>
+    					
     					<div style="margin: 2em 0 1em 0;">
     						<h3>Personal informations</h3>
     					</div>
@@ -181,7 +185,7 @@
     					</div>
 					{% endfor %}
 					<div>
-						<input type="submit" value="Submit">
+						<input id="submit" type="submit" value="Submit">
 					</div>
 				</form>
 			</div>
@@ -198,6 +202,26 @@
 
 $(document).ready(function(){
 
+	$('#submit').on('click', function(event){
+		event.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: "/profil.html",
+			data: $("#form1").serialize(),
+			success: function(response) {
+				console.log(response);
+			$('#messageerreur').empty();
+			$('#messageerreur').prepend('<p style="color: red"><em>'+response+'</em></p>');	
+						
+			console.log(response);
+			},	
+		error: function(response) {
+			console.log('erreur : '+ response);
+				}			
+		});
+		$("html, body").animate({ scrollTop: 0 }, 600);
+	});
+	
     {% for addType in addTypeList %}
     
     	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
@@ -206,7 +230,7 @@ $(document).ready(function(){
     			});
     
     {% endfor %}
-
+    
     //si le profil a une adresse de facturation (facturation ==1), on coche la checkbox et on affiche la div
     {% if facturation == 1 %}
     	$('#chec2').attr('checked', 'checked');
@@ -229,8 +253,23 @@ $(document).ready(function(){
     {% else %}
     	$('#aff4').hide();
     {% endif %}
+
+  //confirmation du password
+    var password = document.getElementById("password")
+    , confirm_password = document.getElementById("confirm_password");
+    
+    function validatePassword(){
+        if(password.value != confirm_password.value) {
+          confirm_password.setCustomValidity("Passwords Don't Match");
+        } 
+        else {
+          confirm_password.setCustomValidity('');
+        }
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
         
-});
+}); 
 </script>
 {% endblock %}
 

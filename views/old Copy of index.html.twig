@@ -1,0 +1,231 @@
+-<!DOCTYPE html>
+ -<html>
+ -<head>
+ -<title>Markito A Ecommerce Category Flat Bootstarp Resposive
+ -	Website Template | 404 :: w3layouts</title>
+ -<link
+ -	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+ -	rel="stylesheet" type="text/css" media="all" />
+ -<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ -<script
+ -	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ -<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+ -
+ -<!-- Custom Theme files -->
+ -<!--theme-style-->
+ -<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+ -<!--//theme-style-->
+ -<meta name="viewport" content="width=device-width, initial-scale=1">
+ -<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ -<meta name="keywords"
+ -	content="Markito Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+ -Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+ -<script type="application/x-javascript">
+ -	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+ -</script>
+ -<!--fonts-->
+ -<link href='http://fonts.googleapis.com/css?family=Amaranth:400,700'
+ -	rel='stylesheet' type='text/css'>
+ -<!--//fonts-->
+ -<script type="text/javascript" src="/js/move-top.js"></script>
+ -<script type="text/javascript" src="/js/easing.js"></script>
+ -<script type="text/javascript">
+ -	jQuery(document).ready(function($) {
+ -		$(".scroll").click(function(event) {
+ -			event.preventDefault();
+ -			$('html,body').animate({
+ -				scrollTop : $(this.hash).offset().top
+ -			}, 1000);
+ -		});
+ -	});
+ -</script>
+ -<!-- start menu -->
+ -<link href="/css/megamenu.css" rel="stylesheet" type="text/css"
+ -	media="all" />
+ -<script type="text/javascript" src="/js/megamenu.js"></script>
+ -<script>
+ -	$(document).ready(function() {
+ -		$(".megamenu").megamenu();
+ -	});
+ -</script>
+ -{% block scripts %}
+ -{% endblock %}
+ -
+ -</head>
+ -<body>
+ -	<!--header-->
+ -	<div class="header">
+ -		<div class="top-header">
+ -			<div class="container">
+ -				<div class="top-head">
+ -
+ -					<ul class="header-in">
+ -					
+ -						<li><a href="/products.html"> products</a></li>
+ -						<li><a href="/404.html">about us</a></li>
+ -						<li><a href="/contact.html"> contact us</a></li>
+ -
+ -
+ -                        {% if username is defined %}	
+ -        				<li ><a href="/logout.html" >logout <span style="color:#eeeeee">({{ username }})</span></a></li>
+ -        				<li ><a href="/profil.html" >my profil</a></li>
+ -        				{% if role is defined%}
+ -        				    {% if role=='ROLE_ADMIN'%}
+ -        					<li ><a href="/admin" >admin</a></li>
+ -        					{% endif %}
+ -        					{% endif %}
+ -        				{% else %}
+ -        				<li ><a href="/login.html" >login</a></li>
+ -        				<li ><a href="/register.html" >register</a></li>
+ -        				{% endif %} 
+ -        				
+ -					</ul>
+ -					<div class="search-top">
+ -						<div class="search">
+ -							<form>
+ -								<input type="text" value="search about something ?"
+ -									onfocus="this.value = '';"
+ -									onblur="if (this.value == '') {this.value = 'search about something ?';}">
+ -								<input type="submit" value="">
+ -							</form>
+ -						</div>
+ -						<div class="world">
+ -							<ul>
+ -								<li><span> </span></li>
+ -								<li><select class="in-drop">
+ -										<option>EN</option>
+ -										<option>FR</option>
+ -										<!--
+ -							  <option>ES</option>-->
+ -										<!--bernard modif-->
+ -								</select></li>
+ -							</ul>
+ -						</div>
+ -						<div class="clearfix"></div>
+ -					</div>
+ -					<div class="clearfix"></div>
+ -				</div>
+ -			</div>
+ -		</div>
+ -		<!---->
+ -
+ -		<div class="header-top">
+ -			<div class="container">
+ -				<div class="head-top">
+ -					<div class="logo">
+ -						<a href="/index.html"><img src="/images/logo.png" alt=""></a>
+ -					</div>
+ -					<div class="top-nav">
+ -						<ul class="megamenu skyblue">
+ -							<li class="active grid"><a href="#">fashion</a></li>
+ -							<li><a href="#">furniture & decor</a>
+ -							<li class="grid"><a href="#">mobiles & tablets</a></li>
+ -							<li class="grid"><a href="/health.html">health & beauty</a>
+ -
+ -							</li>
+ -							<li><a href="#">tvs, gaming & cameras</a></li>
+ -
+ -
+ -						</ul>
+ -					</div>
+ -					<div class="cart box_1">
+ -						<a href="/checkout.html">
+ -							<h3>
+ -								<div class="total">
+ -									<span class="simpleCart_total"></span> (<span
+ -										id="simpleCart_quantity" class="simpleCart_quantity">{% if nbitem is defined %}{{ nbitem }}{% else %}0{% endif %}</span>	
+ -									items)
+ -								</div>
+ -								<img src="/images/cart.png" alt="" />
+ -								<span id="total">
+ -								{% if total is defined %}({{ total }} €){% else %}(0 €){% endif %} 
+ -								</span>
+ -							</h3>
+ -						</a>
+ -						<p>
+ -							<a href="/caddie/clear" class="simpleCart_empty"><img
+ -								src="/images/cart-c.png" alt=""></a>
+ -						</p>
+ -						<div class="clearfix"></div>
+ -					</div>
+ -					<div class="clearfix"></div>
+ -				</div>
+ -			</div>
+ -		</div>
+ -	</div>
+ -
+ -	{% block body %}
+ -
+ -	{% endblock %}
+ -
+ -	<!--footer-->
+ -	<div class="footer">
+ -		<div class="container">
+ -			<div class="col-md-3 footer-left">
+ -				<a href="/index.html"><img src="/images/logo.png" alt=""></a>
+ -				<p class="footer-class">
+ -					© 2015 Markito All Rights Reserved | Template by <a
+ -						href="http://w3layouts.com/" target="_blank">W3layouts</a>
+ -				</p>
+ -			</div>
+ -			<div class="col-md-2 footer-middle">
+ -				<ul>
+ -					<!--<li><a href="404.html">about us</a> </li>-->
+ -					<!--modif bernard-->
+ -					<li><a href="/contact.html"> contact us</a></li>
+ -					<!--<li ><a href="products.html" >  our stores</a></li>-->
+ -					<!--modif bernard-->
+ -				</ul>
+ -			</div>
+ -			<div class="col-md-4 footer-left">
+ -				<ul class="term">
+ -					<li><a href="#">terms and conditions</a></li>
+ -					<!--<li><a href="#">  markito in the press</a></li>
+ -					<li ><a href="#" >  testimonials</a></li>-->
+ -					<!--modif bernard-->
+ -				</ul>
+ -				<ul class="term">
+ -					<li><a href="register.html">join us</a></li>
+ -					<!--<li><a href="#">  markito videos</a></li>-->
+ -					<!--modif bernard-->
+ -
+ -				</ul>
+ -				<div class="clearfix"></div>
+ -			</div>
+ -			<div class="col-md-3 footer-right">
+ -				<h5>WE SUPPORT</h5>
+ -				<ul>
+ -					<li><a href="#"><i> </i></a></li>
+ -					<li><a href="#"><i class="we"> </i></a></li>
+ -					<li><a href="#"><i class="we-in"> </i></a></li>
+ -					<li><a href="#"><i class="we-at"> </i></a></li>
+ -					<li><a href="#"><i class="we-at-at"> </i></a></li>
+ -				</ul>
+ -			</div>
+ -			<div class="clearfix"></div>
+ -		</div>
+ -		<script type="text/javascript">
+ -			$(document).ready(function() {
+ -				/*
+ -				var defaults = {
+ -					containerID: 'toTop', // fading element id
+ -					containerHoverID: 'toTopHover', // fading element hover id
+ -					scrollSpeed: 1200,
+ -					easingType: 'linear' 
+ -				};
+ -				 */
+ -
+ -				$().UItoTop({
+ -					easingType : 'easeOutQuart'
+ -				});
+ -
+ -			});
+ -		</script>
+ -		<a href="#" id="toTop" style="display: block;"> <span
+ -			id="toTopHover" style="opacity: 1;"> </span></a>
+ -	</div>
+ -
+ -</body>
+ -{% block javascripts %}
+ -{% endblock %}
+ -</html> 
