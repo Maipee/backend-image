@@ -41,46 +41,62 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">                     
-                    </p>
-                    <table id="datatable" class="table table-striped table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Label</th>
-                          <th>Description</th>
-                          <th>Ref</th>
-                          <th>Price</th>
-                          <th>Picture</th>
-                          <th>Code TVA</th>
-                          <th>Deleted</th>
-                          <th>Stock</th>
-                          <th>Id suppliers</th>
-                          <th style="text-align:center; font-size:15px"><i class="fa fa-cogs"></i></th>                          
-                        </tr>
-                      </thead>
-                      {%  if list_products is defined %}
-                      <tbody>
-						{% for rows in list_products %}
-                       		<tr width="11%">
-    							<td>{{ rows.label }}</td>
-                              	<td>{{ rows.description }}</td>
-                             	<td>{{ rows.ref }}</td>
-                              	<td>{{ rows.price }} €</td>
-                             	<td>{{ rows.picture }}</td>
-                             	<td>{{ rows.idvat }}</td>
-                             	<td>{{ rows.deleted }}</td>
-                             	<td>{{ rows.stock }}</td>
-                             	<td>{{ rows.idsupplier }}</td>
-                             	<td width="12%">
-                             		<a href="deleteProduct/{{ rows.id }}"><button title="Delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button></a> 
-                             		<a href="product.html/{{ rows.id }}"><button title="Modify" class="btn btn-default" ><i class="fa fa-pencil-square-o"></i></button> </a>                        		
-                             		<a href="newProduct.html/"><button style="margin-left:15px;"title="Add new product" class="btn btn-success"><i class="fa fa-plus"></i></button></a> 
-                             	</td>                                                   
-                        	</tr>
-                        {% endfor %}
-                       {% endif %} 
-                      </tbody>
-                    </table>
+                    <p class="text-muted font-13 m-b-30">  </p> 
+                    {%  if allProduct is defined %}
+					{% for product in allProduct %}
+					                 
+                   	<form name="product" action="/admin/product.html/{{ product.id }}" method="post">
+					<div style="margin: 2em 0 1em 0;">
+					
+						<h3>Modify product (id: {{ product.id }})</h3>
+					</div>
+  					
+  						<div class="form-group">
+  						<label for="description">Label</label>
+    					<input name="label" type="text" class="textbox form-control" value="{{ product.label }}" style="width:40%" />
+    					</div>
+  					
+    					<div class="form-group">
+    					<label for="Description">Description</label>
+    					<input name="description" type="text"class="textbox form-control" value="{{ product.description }}" style="width:40%" />
+    					</div>
+    					
+    					<div class="form-group">
+    					<label for="ref">Ref</label>
+    					<input name="ref" type="text" class="textbox form-control" value="{{ product.ref }}" maxlength="255"style="width:40%" />
+    					</div>
+    					
+    					<div class="form-group">
+    					<label for="price">Price (€)</label>
+    					<input name="price" type="text" class="textbox form-control" value="{{ product.price }}"style="width:40%"  />
+    					</div>
+    					
+    					<div class="form-group">
+    					<label for="picture">Picture</label>
+    					<input name="picture" type="text" class="textbox form-control" value="{{ product.picture }}"style="width:40%"  />
+    					</div>
+    					
+    					<div class="form-group">
+    					<label for="idvat">Idvat</label>
+    					<input name="idvat" type="text" class="textbox form-control" value="{{ product.idvat }}"style="width:40%"  />
+    					</div>
+    					
+						<div class="form-group">
+						<label for="deleted">Deleted</label>
+    					<input name="deleted" type="text" class="textbox form-control" value="{{ product.deleted }}" maxlength="1" style="width:40%" />
+    					</div>
+    					
+    					<div class="form-group">
+    					<label for="stock">Stock</label>
+    					<input name="stock" type="text" class="textbox form-control" value="{{ product.stock }}" maxlength="1" style="width:40%" />
+    					</div>
+    					
+					{% endfor %}
+				{% endif %}
+					<div>
+						<input type="submit" class="btn btn-default" value="Submit">
+					</div>
+				</form>
                   </div>
                 </div>
               </div>
