@@ -81,8 +81,9 @@
                          
                          
                           <td>{{ st.label }}</td>
-                          <td><input type="text" class="form-control" disabled="disabled" name="st_m" value="{{ st.stock }}" id="qtm{{ st.id }}"></td>
-                          <td><input type="text" class="form-control" disabled="disabled" name="st_e" value="{{ st.qty }}" id="qte{{ st.id }}"></td>
+                          <td>
+                          <input type="text" class="form-control" disabled="disabled" name="st_m" value="{{ st.stock }}" id="qtm{{ st.id }}" {% if  st.stock <= 0 %} style="background-color: red" {% endif %}></td>
+                          <td><input type="text" class="form-control" disabled="disabled" name="st_e" value="{{ st.qty }}" id="qte{{ st.id }}" {% if  st.qty <= 0 %} style="background-color: red" {% endif %}></td>
                           <td>{{ st.idsupplier }}</td>
                           <td><button type="button" class="btn btn-success" id="mod{{ st.id }}">Modifier</button></td>
                           <td><button type="submit" class="btn btn-success" desabled ="desabled" id="enreg{{ st.id }}">Enregistrer</button></td>

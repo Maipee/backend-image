@@ -1,0 +1,284 @@
+{% extends 'admin/base.html.twig' %}
+{% block centre %}
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+          
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Administration des produits</h3>
+              </div>
+				<!--
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="clearfix"></div>-->
+            
+              {%  if produits is defined %}
+                      
+			  {% for prod in produits %}
+
+              <div class="col-md-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Produit : {{ prod.label }} | id:{{ prod.id }}</h2>
+                    <!--  
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    -->
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form class="form-horizontal form-label-left" action="/admin/product/update/{{ prod.id }}" method="post">
+					  <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">id</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" value="{{ prod.id }}" name="id" disabled="disabled">
+                        </div>
+                      </div>	
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Label</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" value="{{ prod.label }}" name="label" disabled="disabled">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Description </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="texterea" class="form-control" rows="3" disabled="disabled" name="description" value="{{ prod.description }}">
+                        
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Reference</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" disabled="disabled" name="ref" value="{{ prod.ref }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Prix
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" disabled="disabled" name="price" value="{{ prod.price }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tva</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" disabled="disabled" name="idvat" value="{{ prod.idvat }}">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" disabled="disabled" name="stock" value="{{ prod.stock }}">
+                        </div>
+                      </div>
+                      
+
+					<div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Image</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" disabled="disabled" name="picture" value="{{ prod.picture }}">
+                        </div>
+                      </div>
+					<div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Upload</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input id="file" type="file" />
+                        </div>
+                      </div>	
+						
+                      
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                          <button type="button" class="btn btn-primary" id="modif">Editer les modifications</button>
+                          <button type="submit" class="btn btn-success" id="submitbtn">Envoyer</button>
+                        </div>
+                      </div>
+
+                    </form>
+                    {% endfor %}
+                    
+                    {% else %}
+                    
+                    
+                    <div class="col-md-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Votre nouveau produit : </h2>
+                    <!--  
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    -->
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form class="form-horizontal form-label-left" action="{{ url }}" method="post">
+					  <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">id</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" value="{{ id }}" name="id" disabled="disabled">
+                        </div>
+                      </div>	
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Label</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" placeHolder="{{ label }}" name="label"  value="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Description </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="texterea" class="form-control" rows="3"  name="description" placeHolder="{{ description }}" value="">
+                        
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Reference</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" name="ref" placeHolder="{{ ref }}" value="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Prix
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" name="price" placeHolder="{{ price }}" value="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tva</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" name="idvat" placeHolder="{{ idvat }}" value="">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" name="stock" placeHolder="{{ stock }}" value="">
+                        </div>
+                      </div>
+                      
+
+					<div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Image</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" name="picture" placeHolder="{{ picture }}" value="">
+                        </div>
+                      </div>
+
+                      
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                          
+                          <button type="submit" class="btn btn-success" desabled ="desabled">Envoyer</button>
+                        </div>
+                      </div>
+
+                    </form>
+                    
+                    
+                    
+                {% endif %}
+                	<div id="prev"></div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+           
+          </div>
+        </div>
+        <!-- /page content -->
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+var fileInput = document.querySelector('#file'),
+progress = document.querySelector('#progress');
+
+fileInput.addEventListener('change', function() {
+
+var xhr = new XMLHttpRequest();
+
+xhr.open('POST', 'C:\Users\Pc-W10-21\workspace_f_2017\ecommerce_nodejs\public\images');
+
+xhr.upload.addEventListener('progress', function(e) {
+    progress.value = e.loaded;
+    progress.max = e.total;
+});
+
+xhr.addEventListener('load', function() {
+    alert('Upload terminé !');
+});
+
+var form = new FormData();
+form.append('file', fileInput.files[0]);
+
+xhr.send(form);
+
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+//quand la page est chargé alors on execute le code dans les balises script
+	//on desactive le bouton envoyer
+	$('#submitbtn').prop("disabled",true);
+
+    $("#modif").on("click", function(event){
+		//prop change la propriété     
+    	//$('form>div>div>input:not(:first)').prop('disabled',false);
+    	//Quand il voit false il met l'inverse true, reciproquement
+    	$('form>div>div>input:not(:first)').prop('disabled',!$('form>div>div>input:not(:first)').prop('disabled'));
+    	$('#submitbtn').prop("disable",$('#submitbtn').prop("disabled",false));
+    });
+});
+</script>
+{% endblock %}
+
+
+       

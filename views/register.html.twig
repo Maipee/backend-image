@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% set addTypeList = ["domicile", "facturation", "courrier", "livraison"] %}
+
 {% block body %}
 	<div class="container">
 		<div class="contact">
@@ -8,94 +9,93 @@
     			<div class=" col-md-3 contact-right">
 				</div>
     			<div class=" col-md-9 contact-left">
-    				<form name="register" action="/register.html" method="post">
+    			
+    			
+    				<div id="messageerreur"></div>
+    	
+    			
+    				<form id='form1' action="/register.html" method="post">
     					<div style="margin: 2em 0 1em 0;">
     						<h3>Login informations</h3>
     					</div>    					
     					<div>
     						<span>Email&nbsp;&nbsp;&nbsp;</span>
-    						<input name="email" type="text" class="textbox"  />
+    						<input type="email" name="email" class="textbox" maxlength="60" required />
     					</div>
     					<div>
     						<label style="font-weight: normal;"><span>Password : </span></label>
-    						<input name="password" type="password" class="textbox" style="margin-left:6% ;" />
+    						<input id="password" name="password" type="password" class="textbox contact-left"  placeholder="Password" maxlength="64" style="margin-left:6%" />
     					</div>
     					<div>
     						<label style="font-weight: normal;"><span>Repeat password : </span></label>
-    						<input name="reppassword" type="password" class="textbox"  />
+    						<input id="confirm_password" name="reppassword" type="password" class="textbox" maxlength="64" placeholder="Confirm Password" />
     					</div>
     					<div>
     						<span>Username</span>
-    						<input name="username" type="text" class="textbox"  />
+    						<input name="username" type="text" class="textbox" maxlength="25" required />
     					</div>		
     					<div style="margin: 2em 0 1em 0;">
     						<h3>Personal informations</h3>
     					</div>	
     					<div>
     						<span>Civility</span>
-    						<input name="civilite" type="radio" value="Monsieur" > Mister&nbsp;&nbsp;&nbsp;
-    						<input name="civilite" type="radio" value="Madame" > Miss
+    						<input name="civilite" type="radio" value="Monsieur" checked /> Mister&nbsp;&nbsp;&nbsp;
+    						<input name="civilite" type="radio" value="Madame" /> Miss
     					</div>
     					<div>
     						<span>Firstname</span>
-    						<input name="prenom" type="text" class="textbox" />
+    						<input name="prenom" type="text" class="textbox" maxlength="32" required />
     					</div>
     					<div>
     						<span>Lastname</span>
-    						<input name="nom" type="text" class="textbox" />
+    						<input name="nom" type="text" class="textbox" maxlength="64" required />
     					</div>
     					<div>
-    						<span>Tel</span>
-    						<input name="telephone" type="text" class="textbox"  />
+    						<span>Tel: +33</span>
+    						<input name="telephone" type="text" maxlength="9"  class="textbox" required />
     					</div>
     					<div style="margin: 2em 0 1em 0;">
     						<h3>Adress information</h3>
     					</div>
     					<div id="checkbox" style="margin-top:40px; margin-bottom:40px;">
 					{% for addType in addTypeList %}
-							<input type="checkbox" id="chec{{ loop.index }}" {% if addType == "domicile" %}checked="checked" class="afficher" disabled {%  else %} class="cacher" {% endif %} name="checkbox{{addType}}" > {{addType}} </input>
+							<input type="checkbox" id="chec{{ loop.index }}" {% if addType == "domicile" %}checked="checked" class="afficher" disabled {% else %} class="cacher" {% endif %} name="checkbox{{addType}}" > {{addType}} </input>
 					{% endfor %}
 						</div>
 							<div class="panel-group" id="accordion">
-						{% for addType in addTypeList %}
-								<div class="panel panel-default" id="aff{{ loop.index }}">
-									<div class="panel-heading">
-										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}"> {{ addType|capitalize }}</a>
-										</h4>
-									</div>							
-									<div id="collapse{{ loop.index }}"
-								class="panel-collapse collapse in">								
-										<div class="panel-body">								
-											<div>
-												<span>Number</span> <input name="numero{{ addType }}" type="text" class="textbox" value="{{ profil.num }}" />
-											</div>
-											<div>
-												<span>Street</span> <input name="rue{{ addType }}" type="text"	class="textbox" value="{{ profil.street }}" />
-											</div>
-											<div>
-												<span>Postal Code</span> <input name="CP{{ addType }}" type="text"	class="textbox" value="{{ profil.pc }}" />
-											</div>
-											<div>
-												<span>Town</span> <input name="ville{{ addType }}" type="text"	class="textbox" value="{{ profil.city }}" />
-											</div>
-											<div style="height: 1em;">
-												<!-- <span>Type</span>
-												<select name="type_adr" class="textbox">
-												<option value="domicile">Home</option>
-												<option value="livraison">Delivery</option>
-												<option value="facturation">Billing</option>
-												<option value="courrier">Mail</option>
-												</select>-->
-											</div>
-										</div>
-									</div>
-								</div>
-						{% endfor %}
+						        {% for addType in addTypeList %}
+    								<div class="panel panel-default" id="aff{{ loop.index }}">
+    									<div class="panel-heading">
+    										<h4 class="panel-title">
+    											<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}"> {{ addType|capitalize }}</a>
+    										</h4>
+    									</div>							
+    									<div id="collapse{{ loop.index }}"
+    								class="panel-collapse collapse in">								
+    										<div class="panel-body">								
+    											<div>
+    												<span>Number</span> <input name="numero{{ addType }}" type="text" class="textbox" maxlength="16" value="" {% if addType == "domicile" %}required{% endif %} />
+    											</div>
+    											<div>
+    												<span>Street</span> <input name="rue{{ addType }}" type="text" class="textbox" maxlength="128" value="" {% if addType == "domicile" %}required{% endif %} />
+    											</div>
+    											<div>
+    												<span>Postal Code</span> <input name="CP{{ addType }}" type="text" class="textbox" maxlength="5" value="" {% if addType == "domicile" %}required{% endif %} />
+    											</div>
+    											<div>
+    												<span>Town</span> <input name="ville{{ addType }}" type="text" class="textbox" maxlength="32" value="" {% if addType == "domicile" %}required{% endif %} />
+    											</div>
+    											<div style="height: 1em;">
+    
+    											</div>
+    										</div>
+    									</div>
+    								</div>
+						        {% endfor %}
 							</div>
-    				<div>
-    					<input type="submit" value="Submit">
-    				</div>
+            				<div>
+            					<input type="submit" id="submit" value="Submit" />
+            				</div>
     				</form>
     			</div>
     		</div>
@@ -106,16 +106,47 @@
 {% endblock %}
 {% block javascripts %} 
 <script>
-$(document).ready(function(){
-	$("#accordion>div:not(:first)").hide();//on cache les onglets sauf l'onglet domicile
-});
-{% for addType in addTypeList %}
+    $(document).ready(function(){
 
-	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
-	$('#chec{{ loop.index }}').on('click', function() {
-			$('#aff{{ loop.index }}').toggle();
+    	$("#accordion>div:not(:first)").hide();//on cache les onglets sauf l'onglet domicile
+
+		$('#submit').on('click', function(event){
+			event.preventDefault();
+			$.ajax({
+				type: 'POST',
+				url: "/register.html",
+				data: $("#form1").serialize(),
+				success: function(response) {
+				$('#messageerreur').empty();
+				$('#messageerreur').prepend('<p style="color: red"><em>'+response+'</em></p>');	
+							
+				console.log(response);
+				}			
 			});
+			$("html, body").animate({ scrollTop: 0 }, 600);
+	});
+ 
+    {% for addType in addTypeList %}
+    	//on affiche l'onglet souhaité en cliquant sur la case à cocher qui va de paire.
+    	$('#chec{{ loop.index }}').on('click', function() {
+    			$('#aff{{ loop.index }}').toggle();
+    			});    
+    {% endfor %}
 
-{% endfor %}
+    //confirmation du password
+    var password = document.getElementById("password")
+    , confirm_password = document.getElementById("confirm_password");
+    
+    function validatePassword(){
+        if(password.value != confirm_password.value) {
+          confirm_password.setCustomValidity("Passwords Don't Match");
+        } 
+        else {
+          confirm_password.setCustomValidity('');
+        }
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+    });  	    
 </script>
 {% endblock %}

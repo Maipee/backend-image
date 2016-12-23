@@ -63,23 +63,23 @@
                       <tbody>
 						{% for form in form_email %}
                         <tr width="10%">
-                          <td>{{ form.namecontact }}</td>
+                          <td>{{ form.name }}</td>
                           <td>{{ form.email }}</td>
                           <td>{{ form.subject }}</td>
-                          <td>{{ form.CreateDate|date('m-d-Y h:i:s a') }}</td>
-                          <td>
-                          {%  if  form.emailNotification == '1' %}
+                          <td>{{ form.creationdate|date('m-d-Y h:i:s a') }}</td>
+                          <td> 
+                          {%  if  form.emailnotification  == '1' %}
                           Envoyé
                           {% endif %}
-                          {%  if  form.emailNotification  == '0' %}
+                          {%  if  form.emailnotification  == '0' %}
                           <SELECT name="envoyer"  id="envoyer{{ form.id }}">
-                                <OPTION id="Envoyer{{ form.id }}-1" >Envoyer</OPTION>
-                                <OPTION id="Envoyer{{ form.id }}-0" selected>Pas envoyer</OPTION>
+                                <OPTION id="Envoyer{{ form.id }}-1" >Envoyé</OPTION>
+                                <OPTION id="Envoyer{{ form.id }}-0" selected>Pas envoyé</OPTION>
                                 
                             </SELECT>
                          {% endif %}
                          </td>
-                         {# {{ form.emailNotification }} #}
+                         {# {{ form.emailnotitificatino }} #}
                           
                         </tr>
                         {% endfor %}
@@ -97,12 +97,12 @@
 {% block javascripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
-//quand la page est charg� alors on execute le code dans les balises script
+//quand la page est chargé alors on execute le code dans les balises script
 $(document).ready(function(){
 	
 	
 	{%  if form_email is defined %}
-    //on utilise un boucle twig sur le tableau form-email qui a recuperer les donn�es de la table form_email
+    //on utilise un boucle twig sur le tableau form-email qui a recuperer les données de la table form_email
 	{% for form in form_email %}
 	
 	$("#envoyer{{ form.id }}").on("change", function(event){
@@ -112,10 +112,10 @@ $(document).ready(function(){
 		var url = "/admin/formenvoi/{{ form.id }}";
 		//action ajax qui envoie l'url de la route et
 		$.ajax(url).done(function(){
-				 //on va selectionn� la balise envoyer(id) et vider l'interieur
+				 //on va selectionné la balise envoyer(id) et vider l'interieur
 				 $('#envoyer{{ form.id }}').empty();
 				 //on ajoute le text envoyer 
-				 $('#envoyer{{ form.id }}').before('Envoyer');
+				 $('#envoyer{{ form.id }}').before('Envoyé');
 				 //on efface la balise select
 				 $('#envoyer{{ form.id }}').remove();
 				 

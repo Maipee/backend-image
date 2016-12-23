@@ -26,6 +26,10 @@
 
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
+    {% block css %}
+    
+    {% endblock %}
+    
   </head>
 
   <body class="nav-md">
@@ -34,7 +38,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/admin/index.html" class="site_title"><i class="fa fa-paw"></i> <span>Ecommerce</span></a>
+              <a href="http://localhost:8088/admin/produits.html" class="site_title"><i class="fa fa-paw"></i> <span>Ecommerce</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -42,7 +46,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="/images/img.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Bienvenue,</span>
@@ -60,39 +64,72 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/admin/index.html">Page Admin</a></li>
+                      <li><a href="http://localhost:8088/admin/">Page Admin</a></li>
+                     <li><a href="http://localhost:8088/">Accueil public</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> Administration<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li><a href="http://localhost:8088/admin/produits.html">Produits</a></li>
+                    <li><a href="http://localhost:8088/admin/touslesclients.html">Clients</a></li>
+                    <li><a href="http://localhost:8088/admin/fournisseurs.html">Fournisseurs</a></li>
+                      <li><a href="form.html">Message contact</a></li>
                      
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Forms Contact <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-desktop"></i> Commandes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/admin/form.html">Page Message</a></li>
                      
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-shopping-cart"></i> Magasin <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/admin/product/list.html">Gestion des produits</a></li>
+                      <li><a href="http://localhost:8088/admin/fournisseur.html">Fournisseur</a></li>
+                      <li><a href="http://localhost:8088/admin/encoursfourniseur.html">Fournisseur en cours</a></li>
+                      <li><a href="http://localhost:8088/admin/client.html">Client</a></li>
+                      
+                      <li><a href="http://localhost:8088/admin/encoursclient.html">Client en cours</a></li>
                       
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-cubes"></i> Entrepôt <span class="fa fa-chevron-down"></span></a>
+                   <li><a><i class="fa fa-desktop"></i> Magasin (fabrice)<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/admin/stock/managment.html">Gestion du stock</a></li>
+                     
+                      <li><a href="http://localhost:8088/admin/product/list.html">Gestion des produits</a></li>
+                     
+                      
+                      
+                      
                       
                     </ul>
                   </li>
-              <li><a><i class="fa fa-user"></i> Clients <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-desktop"></i> Entrepot (fabrice)<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/admin/order/list.html">Commandes</a></li>
+                     
+                      <li><a href="http://localhost:8088/admin/stockt/management.html">Gestion des produits</a></li>
+                      
                     </ul>
                   </li>
-                 
-              <li><a><i class="fa fa-cube"></i> Fournisseurs <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-user"></i> Gestions (fabrice)<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/admin/stock/list.html">Commandes</a></li>
+                     
+                      <li><a href="http://localhost:8088/admin/orders/list.html">Table commandes</a></li>
+                      
+                      
+                      
+                      
                     </ul>
                   </li>
+                  
+                  <li><a><i class="fa fa-cubes"></i> Fournisseur (fabrice)<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                     
+                      <li><a href="http://localhost:8088/admin/stockorder/list.html">Commandes</a></li>
+                      
+                      
+                      
+                      
+                    </ul>
+                  </li>
+                  
+                  
+                  
                  
               </div>
               
@@ -111,7 +148,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="/logout.html">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="/logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -130,7 +167,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="/images/img.jpg" alt="">John Doe
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -142,7 +179,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="/logout.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
@@ -154,7 +191,7 @@
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -166,7 +203,7 @@
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -178,7 +215,7 @@
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -190,7 +227,7 @@
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -279,9 +316,9 @@
 
     <!-- Custom Theme Scripts -->
     <script src="/build/js/custom.min.js"></script>
-	
-    {% block javascripts %}{% endblock %}
+	{% block javascripts %}{% endblock %}
     <!-- Flot -->
+    
     <script>
       $(document).ready(function() {
         var data1 = [
@@ -541,6 +578,7 @@
     </script>
     <!-- /gauge.js -->
     <!-- bloc perso -->
+    
   </body>
 </html>
         

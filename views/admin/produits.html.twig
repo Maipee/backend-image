@@ -1,0 +1,233 @@
+{% extends 'admin/base.html.twig' %}
+{% block centre %}
+  <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Administration : <small>des produits du magasin sur le site Ecommerce</small></h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Vous rechercher...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Recherche</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Produits <small>en ligne</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      
+                    </p>
+                    <div id="reponse"></div>
+                    <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Label</th>
+                          <th>Prix</th>
+                          <th>Quantité</th>
+                          <th>Reference</th>
+                          <th> - </th>
+                          <th> - </th>
+                          
+                        </tr>
+                      </thead>
+                      {%  if produits is defined %}
+                      <tbody>
+						{% for prod in produits %}
+                        <tr width="10%">
+                          <td>{{ prod.id }}</td>
+                          <td>{{ prod.label }}</td>
+                          <td>{{ prod.price }}</td>
+                          <td>{{ prod.stock }}</td>
+                          <td> {{ prod.ref }}</td>
+                          <td> <a href="modif/{{ prod.id }}">Modifier</a></td>
+                          <td> <a href="sup/{{ prod.id }}" id="sup{{ prod.id }}">Supprimer</a></td>
+                         
+                          
+                        </tr>
+                        {% endfor %}
+                         {% endif %} 
+                         <tr id="ajax"> </tr>
+                      </tbody>
+                     
+                    </table>
+                    
+                    
+                     <div id="prodAjout">
+                    <h2>Ajouter un produit</h2>
+                        <form action="/admin/ajout/" method="post" >
+                            <table width="70%" align="center" id="ajouter">
+                                <tr>
+                                    <td width="50%">
+                                    	Label
+                                    </td>
+                                    <td width="50%">
+                                    	<input type="text" value="Ecrire le label" name="label"  size="100">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">
+                                    	Description
+                                    </td>
+                                    <td width="50%">
+                                    	<textarea name="description"  size="100" style="margin: 0px; width: 732px; height: 64px;">Ecrire la description</textarea>
+                                    </td>
+                                </tr>
+                                
+                            	<tr>
+                                    <td width="50%">
+                                    	Prix
+                                    </td>
+                                    <td width="50%">
+                                    	<input type="text" value="Ecrire le prix" name="prix" size="100">
+                                    </td>
+                                </tr>
+                                
+                                
+                                
+                                 <tr>
+                                    <td width="50%">
+                                    	Image
+                                    </td>
+                                    <td width="50%">
+                                    	<input type="text" value="Ecrire le nom de l'image" name="image" size="100">
+                                    </td>
+                                </tr>
+                                
+                                
+                                 <tr>
+                                    <td width="50%">
+                                    	Tva
+                                    </td>
+                                    <td width="50%">
+                                    
+  									<label>Indiquer la Tva : </label>
+                                    
+                                    	<select name="tva" id="tva">
+                                           <option value="1"> 1</option>
+                                           <option value="2"> 2</option>
+                                           <option value="3"> 3</option>
+                                           <option value="4"> 4</option>
+                                           <option value="5"> 5</option>
+                                      </select>
+                                    	
+                                    </td>
+                                </tr>
+                                
+                                 <tr>
+                                    <td width="50%">
+                                    	Quantité magasin
+                                    </td>
+                                    <td width="50%">
+                                    	<input type="text" value="Indiquer la quantité" name="qutM" size="100">
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td width="50%">
+                                    	Quantité entrepot
+                                    </td>
+                                    <td width="50%">
+                                    	<input type="text" value="Indiquer la quantité" name="qutE" size="100">
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td width="50%">
+                                    	Fournisseur
+                                    </td>
+                                    <td width="50%">
+                                    
+  									<label>Indiquer le fournisseur : </label>
+                                    
+                                    	<select name="idF" id="idF">
+                                           <option value="1">Les rocher & compagnie</option>
+                                           <option value="2">les rossignols du Sud</option>
+                                           <option value="3">Doratez Frere</option>
+                                           <option value="4">La Redoute</option>
+                                           <option value="5">Glarical</option>
+                                      </select>
+                                    	
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">
+                                    	
+                                    </td>
+                                    <td width="50%">
+                                    	<input type="submit" value="Ajouter">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                       </div>
+                    
+                       
+                  </div>
+                </div>
+              </div>
+              </div>
+             </div>
+            </div>
+        <!-- /page content -->
+{% endblock %}	
+{% block css %}
+<style type="text/css">
+td {
+	padding:5px;
+	
+}
+#ajouter tr {
+	background-color: #d2d5d7;
+	padding:5px;
+}
+h2 {
+	text-align: center;
+}
+a:hover {
+	color : #b636bb;
+}
+</style>
+{% endblock %}	
+
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+//quand la page est chargé alors on execute le code dans les balises script
+
+
+
+	
+});
+
+</script>
+{% endblock %}

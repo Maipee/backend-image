@@ -1,0 +1,162 @@
+{% extends 'admin/base.html.twig' %}
+{% block centre %}
+  <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Administration : <small>des commandes fournisseur du magasin sur le site Ecommerce</small></h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Vous rechercher...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Recherche</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Commandes fournisseur<small>en ligne</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      
+                    </p>
+                      <div id="reponse">
+                     Par mois : 
+                     <a href="http://localhost:8088/admin/fournisseur/2016-09-01%2000:00:00&2016-09-30%2000:00:00">Septempbre</a>
+                      - <a href="http://localhost:8088/admin/fournisseur/2016-10-01%2000:00:00&2016-10-31%2000:00:00">Octobre</a>
+                      - <a href="http://localhost:8088/admin/fournisseur/2016-11-01%2000:00:00&2016-11-30%2000:00:00">Novembre</a>
+                      - <a href="http://localhost:8088/admin/fournisseur/2016-12-01%2000:00:00&2016-12-31%2000:00:00">Decembre</a> <br />
+                     Sur les dernieires semaines : 
+                     <a href="http://localhost:8088/admin/fournisseur/2016-12-12%2000:00:00&2016-12-18%2000:00:00">Du 12/12 au 18/12</a>
+                     - <a href="http://localhost:8088/admin/fournisseur/2016-12-05%2000:00:00&2016-12-11%2000:00:00">Du 05/12 au 11/12</a>
+                     - <a href="http://localhost:8088/admin/fournisseur/2016-11-28%2000:00:00&2016-12-04%2000:00:00">Du 28/11 au 04/12</a>
+                    <br />
+                     Par trimestre
+                    
+                       - <a href="http://localhost:8088/admin/fournisseur/2016-01-01%2000:00:00&2016-03-31%2000:24:00">1er trimerstre</a>
+                       - <a href="http://localhost:8088/admin/fournisseur/2016-04-01%2000:00:00&2016-06-30%2000:24:00">2eme trimestre</a>
+                       - <a href="http://localhost:8088/admin/fournisseur/2016-07-01%2000:00:00&2016-09-30%2000:24:00">3eme trimestre</a>
+                       - <a href="http://localhost:8088/admin/fournisseur/2016-08-01%2000:00:00&2016-12-31%2000:24:00">4eme trimestre</a>
+                     </div>
+                     <div id"message"><h3>
+                     
+                     
+                     
+                     Pour la periode du {%  if date1 is defined %} {{ date1|date("d/m/Y") }} {%  endif %} au {%  if date2 is defined %} {{ date2|date("d/m/Y") }} {%  endif %} 
+                     
+                     
+                     
+                      
+                      </h3></</div>
+                    <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Id fournisseur</th>
+                          <th>Prix</th>
+                          <th>Date</th>
+                          <th>Quantité</th>
+                          <th>Reference</th>
+                          <th>Produit</th>
+                          <th>Client</th>
+                          
+                          
+                        </tr>
+                      </thead>
+                      {%  if fournisseurs is defined %}
+                      <tbody>
+						{% for cli in fournisseurs %}
+                        <tr width="10%">
+                          <td>{{ cli.idcustomer }}</td>
+                          <td>{{ cli.price }}</td>
+                          <td>{{ cli.statusdate|date('m-d-Y h:i:s a') }}</td>
+                          <td>{{ cli.quantity }}</td>
+                          <td>
+                          
+                          {%  if cli.status == "en attente de paiement" %} Commande envoyée au prestataire {% endif %}
+						  {%  if cli.status == "en cours de livraison" %} Commande activée par le prestataire {% endif %}
+                          {%  if cli.status == "livré" %} Commande livrée par le prestataire {% endif %}
+                          
+                          </td>
+                          <td><a href="http://localhost:8088/single.html/{{ cli.idproduct }}">Voir le produit</a></td>
+                         <td><a href="http://localhost:8088/admin/fournisseur/{{ cli.idcustomer }}">Voir le fournisseur</a></td>
+                          
+                        </tr>
+                        {% endfor %}
+                         {% endif %} 
+                         <tr id="ajax"> </tr>
+                      </tbody>
+                     
+                    </table>
+                    
+                    
+                    
+                    
+                    
+                       
+                  </div>
+                </div>
+              </div>
+              </div>
+             </div>
+            </div>
+        <!-- /page content -->
+{% endblock %}	
+{% block css %}
+<style type="text/css">
+td {
+	padding:5px;
+	
+}
+#ajouter tr {
+	background-color: #d2d5d7;
+	padding:5px;
+}
+h2 {
+	text-align: center;
+}
+a:hover {
+	color : #b636bb;
+}
+</style>
+{% endblock %}	
+
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+//quand la page est chargé alors on execute le code dans les balises script
+
+
+
+	
+});
+
+</script>
+{% endblock %}
