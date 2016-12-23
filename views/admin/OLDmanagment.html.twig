@@ -1,0 +1,99 @@
+{% extends 'admin/base.html.twig' %}
+{% block centre %}
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <!-- <div class="page-title">
+              <div class="title_left">
+                <h3>Tables <small>Some examples to get you started</small></h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+ -->
+            <div class="row">
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Gestion du stock</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>-->
+{#                       <li><a href="/admin/product/add"><i class="fa fa-plus"></i></a>#}
+{#                       </li>#}
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>ID produit</th>
+                          <th>Label produit</th>
+                          <th>Quantité magasin</th>
+                          <th>Quantité entrepôt</th>
+                          <th>ID Fournisseur</th>
+                          <th>Action</th>
+                          <th>Action</th>
+                          <th>Action</th>
+
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	{% for liste in liststocks %}
+                        <tr>
+                          <th scope="row">{{ loop.index }}</th>
+                          <td>{{ liste.id }}</td>
+                          <td>{{ liste.label }}</td>
+                          <form id='formbtn' action="" method="post"> 
+                          <td><input type="text" value="{{ liste.stock }}"></input></td>
+                          <td><input type="text" value="{{ liste.qty }}"></input></td>
+                          <td>{{ liste.idsupplier }}</td>                                                                         
+                              <td><input id="" type="submit" value="Modifier" class="btn btn-success"></input></td>
+                              <td><input id="" type="submit" value="Save" class="btn btn-success"></input></td> 
+                          </form>                         
+                          <form id='formTransf' action="/admin/transfer/:id/:qte" method="post">
+                              <td><input id="" type="submit" value="Transférer" class="btn btn-success"></input>
+                              <input type="text" class="" placeholder="Transférer" style="margin-left:10px;width:70px;"></td> 
+                          </form>                          
+                        </tr>
+                      	{% endfor %} 
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+{% endblock  %}

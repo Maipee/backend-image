@@ -1,0 +1,309 @@
+{% extends 'admin/base.html.twig' %}
+{% block centre %}
+
+
+
+<!-- page content -->
+<div class="right_col" role="main">
+	<div class="">
+{# 		<div class="page-title">#}
+{# 			<div class="title_left">#}
+{# 				<h3>Form Elements</h3>#}
+{# 			</div>#}
+
+{# 			<div class="title_right">#}
+{# 				<div#}
+{# 					class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">#}
+{# 					<div class="input-group">#}
+{# 						<input type="text" class="form-control"#}
+{# 							placeholder="Search for..."> <span#}
+{# 							class="input-group-btn">#}
+{# 							<button class="btn btn-default" type="button">Go!</button>#}
+{# 						</span>#}
+{# 					</div>#}
+{# 				</div>#}
+{# 			</div>#}
+{# 		</div>#}
+{# 		<div class="clearfix"></div>#}
+		<div class="row">
+			<div class="col-md-6 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>
+							Produit
+						</h2>
+{# 						<ul class="nav navbar-right panel_toolbox">#}
+{# 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>#}
+{# 							</li>#}
+{# 							<li class="dropdown"><a href="#" class="dropdown-toggle"#}
+{# 								data-toggle="dropdown" role="button" aria-expanded="false"><i#}
+{# 									class="fa fa-wrench"></i></a>#}
+{# 								<ul class="dropdown-menu" role="menu">#}
+{# 									<li><a href="#">Settings 1</a></li>#}
+{# 									<li><a href="#">Settings 2</a></li>#}
+{# 								</ul></li>#}
+{# 							<li><a class="close-link"><i class="fa fa-close"></i></a></li>#}
+{# 						</ul>#}
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<br />
+						{% if product is defined %}
+						{% for product in products %}
+						<form method="post" class="form-horizontal form-label-left" action="/admin/product/update/{{ product.id }}">
+
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">id
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input name="id" type="text" value="{{ product.id }}"
+										class="form-control" disabled="disabled" placeholder="id">
+
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Label</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="label" type="text" value="{{ product.label }}"
+										class="form-control" disabled="disabled"
+										placeholder="Description">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Description
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="description" type="text" value="{{ product.description }}"
+										class="form-control" disabled="disabled"
+										placeholder="Description">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Ref
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="ref" type="text" value="{{ product.ref }}"
+										class="form-control" disabled="disabled" placeholder="Ref">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Price
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="price" type="text" value="{{ product.price }}"
+										class="form-control" disabled="disabled" placeholder="Price">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Picture
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="picture" type="text" value="{{ product.picture }}"
+										class="form-control" disabled="disabled" placeholder="Picture">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Code
+									TVA </label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="idvat" type="text" value="{{ product.idvat }}"
+										class="form-control" disabled="disabled"
+										placeholder="Code TVA">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Deleted
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="deleted" type="text" value="{{ product.deleted }}"
+										class="form-control" disabled="disabled" placeholder="Deleted">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Stock
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="stock" type="text" value="{{ product.stock }}"
+										class="form-control" disabled="disabled" placeholder="Stock">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Id
+									suppliers </label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="idsupplier" type="text" value="{{ product.idsupplier }}"
+										class="form-control" disabled="disabled"
+										placeholder="Id suppliers">
+								</div>
+							</div>
+										<div class="ln_solid"></div>
+					<div class="form-group">
+						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+							<a href="/product/list.html"><button type="submit"
+									id="editbtn" class="btn btn-primary">Edit</button></a>
+							<button type="submit" id="submitbtnbtn" class="btn btn-success">Submit</button>
+						</div>
+					</div>
+					
+					
+					</form>
+					
+					{% endfor %}
+					{% else %}
+										
+							<form method="post" class="form-horizontal form-label-left" action="/admin/product/add">
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">id
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input name="id" type="text" 
+										class="form-control" disabled="disabled" placeholder="id">
+
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Label</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="label" type="text" 
+										class="form-control"
+										placeholder="Description">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Description
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="description" type="text" 
+										class="form-control" 
+										placeholder="Description">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Ref
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="ref" type="text" 
+										class="form-control"  placeholder="Ref">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Price
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="price" type="text" 
+										class="form-control"  placeholder="Price">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Picture
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="picture" type="text" 
+										class="form-control"  placeholder="Picture">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Code
+									TVA </label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="idvat" type="text" 
+										class="form-control" 
+										placeholder="Code TVA">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Deleted
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="deleted" type="text" 
+										class="form-control"  placeholder="Deleted">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Stock
+								</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="stock" type="text" 
+										class="form-control"  placeholder="Stock">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Id
+									suppliers </label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<input  name="idsupplier" type="text" 
+										class="form-control" 
+										placeholder="Id suppliers">
+								</div>
+							</div>
+				
+					<div class="ln_solid"></div>
+					<div class="form-group">
+						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+{# 							<a href="/product/list.html"><button type="submit"#}
+{# 									id="editbtn" class="btn btn-primary">Edit</button></a>#}
+							<button type="submit" id="submitbtnbtn" class="btn btn-success">Submit</button>
+						</div>
+					</div>
+					</form>
+					
+					{% endif %}
+					
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+</div>
+</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+ $(document).ready(function(){
+// 	 $('#submitbtnbtn').prop("disabled",true);
+	 
+	 $('#editbtn').on('click',function(event){		 	 
+ 		$('form>div>div>input:not(:first)').prop("disabled",!$('form>div>div>input:not(:first)').prop("disabled"));
+ 		
+//  		$('#submitbtnbtn').prop("disabled",$('form>div>div>input:not(:first)).prop("disabled")');
+ 		
+ 		event.preventDefault();
+ 		
+
+
+
+ 		
+ 		
+ 		
+ 
+ //alert('coucou Toto');
+ });
+ });
+ </script>
+
+{% endblock %}
+
