@@ -10,6 +10,9 @@ var caddierouting = require('caddierouting');
 var df = require('dateformat');
 var cfg = require('config');
 var mailrouting= require ('emailrouting');
+var pr= require ('productrouting');
+var or= require ('orderrouting');
+var sor= require ('stockrouting');
 
 //on appel le module qui s'occupe des routes admin
 var admin = require('admin');
@@ -55,12 +58,24 @@ app.use("/",caddierouting);
 //envoi des mails
 app.use("/",mailrouting);
 
+//
+app.use("/admin",pr);
+
+//
+app.use("/admin",or);
+
+//
+app.use("/admin",sor);
+
+//LAISSER LA 404 EN DERNIER!!!!!!!!!!
 //gestion de la page 404
 app.use(function (req,resp){
 		if(typeof req.user=='undefined'){
 			resp.status(404).render('404.html.twig');}
 			else {resp.status(404).render('404.html.twig',{"username":req.user.username})};						
 });
+
+
 
 
 

@@ -1,0 +1,226 @@
+{% extends 'admin/base.html.twig' %}
+{% block centre %}
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+          <!--   <div class="page-title">
+              <div class="title_left">
+                <h3>Form Elements</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+ -->
+            <div class="row">
+
+              <div class="col-md-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Form Basic Elements <small>different form elements</small></h2>
+                    <!-- <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul> -->
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    {% if order is defined %}
+                    {% for order in listorders %}
+                    <form class="form-horizontal form-label-left" action="/admin/order/update/{{ order.id }}" method="post">
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Identifiant (ID) </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" disabled="disabled" placeholder="Identifiant" value="{{ order.id }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">quantity</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="quantity" class="form-control" disabled="disabled" placeholder="quantity"  value="{{ order.quantity }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">idcustomer</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="idcustomer" class="form-control" disabled="disabled" placeholder="idcustomer"   value="{{ order.idcustomer }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">idproduct</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="idproduct" class="form-control" disabled="disabled" placeholder="idproduct"   value="{{ order.idproduct }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">deleted</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="deleted" class="form-control" disabled="disabled" placeholder="deleted"   value="{{ order.deleted }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">codeorder</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="codeorder" class="form-control" disabled="disabled" placeholder="codeorder"   value="{{ order.codeorder }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">statusdate</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="statusdate" class="form-control" disabled="disabled" placeholder="statusdate"   value="{{ order.statusdate }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">status</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="status" class="form-control" disabled="disabled" placeholder="status" value="{{ order.status }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">price</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="price" class="form-control" disabled="disabled" placeholder="price" value="{{ order.price }}">
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">idsupplier</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="idsupplier" class="form-control" disabled="disabled" placeholder="idsupplier" value="{{ order.idsupplier }}">
+                        </div>
+                      </div>
+                      
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                          <button id="editbtn" type="submit" class="btn btn-primary">Edit</button>
+                          <button id="submitbtn" type="submit" disabled="disabled" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+
+                    </form>
+                    {% endfor %}
+                    {% else %}
+                      <form class="form-horizontal form-label-left" action="/admin/order/add/{{ order.id }}" method="post">
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Identifiant (ID) </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" placeholder="Identifiant" value="{{ order.id }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">quantity</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="quantity" class="form-control"  placeholder="quantity"  value="{{ order.quantity }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">idcustomer</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="idcustomer" class="form-control"  placeholder="idcustomer"   value="{{ order.idcustomer }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">idproduct</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="idproduct" class="form-control"  placeholder="idproduct"   value="{{ order.idproduct }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">deleted</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="deleted" class="form-control"  placeholder="deleted"   value="{{ order.deleted }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">codeorder</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="codeorder" class="form-control"  placeholder="codeorder"   value="{{ order.codeorder }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">statusdate</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="statusdate" class="form-control"  placeholder="statusdate"   value="{{ order.statusdate }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">status</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="status" class="form-control"  placeholder="status" value="{{ order.status }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">price</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="price" class="form-control"  placeholder="price" value="{{ order.price }}">
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">idsupplier</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="idsupplier" class="form-control"  placeholder="idsupplier" value="{{ order.idsupplier }}">
+                        </div>
+                      </div>
+                      
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                          <button id="editbtn" type="submit" class="btn btn-primary">Edit</button>
+                          <button id="submitbtn" type="submit" disabled="disabled" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+
+                    </form>
+                    
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+          </div>
+        </div>
+        <!-- /page content -->
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      $(document).ready(function(){
+          $('#editbtn').on("click", function(event){
+              event.preventDefault();
+        	  $('form>div>div>input:not(:first)').prop("disabled", !$('form>div>div>input:not(:first)').prop("disabled"));
+        	  $('#submitbtn').prop("disabled", $('form>div>div>input:not(:first)').prop("disabled"));
+          });
+      });
+    </script>
+{% endblock %}
