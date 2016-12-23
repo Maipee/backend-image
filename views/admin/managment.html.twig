@@ -1,0 +1,156 @@
+{% extends 'admin/base.html.twig' %}
+{% block centre %}
+
+<!-- page content -->
+<div class="right_col" role="main">
+	<div class="">
+		<div class="page-title">
+			<div class="title_left">
+				<h3>
+					Gestion des Stocks de l'entrepot et du magasin </small>
+				</h3>
+			</div>
+
+			<div class="title_right">
+				<div
+					class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Search for..."> <span
+							class="input-group-btn">
+							<button class="btn btn-default" type="button">Go!</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+
+		<div class="row">
+
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Produit en stock</h2>
+
+						<ul class="nav navbar-right panel_toolbox">
+
+							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+							</li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-expanded="false"><i
+									class="fa fa-wrench"></i></a></li>
+							<li><a href="/admin/product/add" class="close-link" title=""
+								data-toggle="tooltip" data-placement="left"
+								data-original-title="Ajouter un produit dans la base de donnée"><i
+									class="fa fa-plus"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						{%  if liststocks is defined %}
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>id</th>
+									<th>Label</th>
+									<th>Quantite magasin</th>
+									<th>Quantite entrepot</th>
+									<th>id fournisseur</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							{% for st in liststocks %}
+							<tbody>
+								<form action="/admin/stock/modif/{{ st.ID }}" method="post">
+									<tr>
+
+										<th scope="row">{{ st.ID }}</th>
+										<td>{{ st.LABEL }}</td>
+										<td><input type="text" class="form-control"
+											disabled="disabled" name="st_m" value="{{ st.STOCK }}"
+											id="qtm{{ st.ID }}" {% if st.STOCK<=0 %}
+											style="background-color: red" {% endif %}></td>
+										<td><input type="text" class="form-control"
+											disabled="disabled" name="st_e" value="{{ st.QTY }}"
+											id="qte{{ st.ID }}" {% if st.QTY<=0 %}
+											style="background-color: red" {% endif %}></td>
+										<td>{{ st.IDSUPPLIER }}</td>
+										<td><button type="button" class="btn btn-success"
+												id="mod{{ st.ID }}">Modifier</button></td>
+										<td><button type="submit" class="btn btn-success"
+												disabled="disabled" id="enreg{{ st.ID }}">Enregistrer</button></td>
+								</form>
+
+								<td><input type="text" class="form-control" name="transfer"
+									value="" id="qtetrs{{ st.ID }}"></td>
+								<td><a id="urlt{{ st.ID }}"
+									href="/admin/stock/transfer/{{ st.ID }}">Transférer</a></td>
+								</tr>
+							</tbody>
+							{% endfor %}
+
+						</table>
+						{% else %}
+						Il n'y a pas d'élément encore dans la base de données
+
+						{% endif %}
+						<br /> <a href="/admin/product/add"><input type="button"
+							class="btn btn-dark" value="Ajouter une commande"></a>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+<!-- /page content -->
+{% endblock %}
+{% block css %}
+
+
+{% endblock %}
+{% block javascripts %}
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+//quand la page est chargée alors on execute le code dans les balises script
+{%  if liststocks is defined %}
+{% for st in liststocks %}
+
+	
+    $("#mod{{ st.ID }}").on("click", function(event){
+		//prop change la propriété     
+    	//$('form>div>div>input:not(:first)').prop('disabled',false);
+    	//Quand il voit false il met l'inverse true, reciproquement
+    	$('#qtm{{ st.ID }}').prop('disabled',false);
+    	$('#qte{{ st.ID }}').prop('disabled',false);
+    	$('#enreg{{ st.ID }}').prop('disabled',false);
+    });
+    
+
+    $("#qtetrs{{ st.ID }}").on('blur', function(event){
+        
+    		var eventValue = event.target.value;
+  			var url = "/admin/stock/transfer/{{ st.ID }}/"+eventValue;
+  	       	
+  			$('#urlt{{ st.ID }}').attr('href', url);
+  	});
+    
+    $("#qtetrs{{ st.ID }}").on('click', function(event){
+        
+		var eventValue = event.target.value;
+			var url = "/admin/stock/transfer/{{ st.ID }}/"+eventValue;
+	       	
+			$('#urlt{{ st.ID }}').attr('href', url);
+	});
+
+    {% endfor %}
+    {% endif %}
+    
+});
+</script>
+{% endblock %}
