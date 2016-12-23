@@ -1,0 +1,182 @@
+{% extends 'admin/base.html.twig' %}
+{% block centre %}
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Gestion des Stocks de l'entrepot et du magasin </small></h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+             
+
+
+              
+
+             
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Produit en stock</h2>
+                    
+                    <ul class="nav navbar-right panel_toolbox">
+                    
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                      
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        
+                      </li>
+                      <li><a href="/admin/product/add" class="close-link" title=""  data-toggle="tooltip" data-placement="left" data-original-title="Ajouter un produit dans la base de donnée"><i class="fa fa-plus"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                  {%  if stocks is defined %}
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>id</th>
+                          <th>Label</th>
+                          <th>Quantite magasin</th>                       
+                          <th>Quantite entrepot</th>
+                          <th>id fournisseur</th>
+                          <th></th>
+                          <th></th>
+                         
+                          
+                          
+                          
+                        </tr>
+                      </thead>
+                      
+                       
+                      
+						{% for st in stocks %}
+                    
+                      <tbody>
+						<form action="/admin/stock/moidif/{{ st.id }}" method="post">                   
+                        <tr>
+                      
+                          <th scope="row">{{ st.id }}</th>
+                         
+                         
+                          <td>{{ st.label }}</td>
+                          <td><input type="text" class="form-control" disabled="disabled" name="st_m" value="{{ st.stock }}" id="qtm{{ st.id }}"></td>
+                          <td><input type="text" class="form-control" disabled="disabled" name="st_e" value="{{ st.qty }}" id="qte{{ st.id }}"></td>
+                          <td>{{ st.idsupplier }}</td>
+                          <td><button type="button" class="btn btn-success" id="mod{{ st.id }}">Modifier</button></td>
+                          <td><button type="submit" class="btn btn-success" desabled ="desabled" id="enreg{{ st.id }}">Enregistrer</button></td>
+                          </form>
+                         
+                          
+                          <td><input type="text" class="form-control" name="transfer" value="" id="qtetrs{{ st.id }}"> </td>
+                          <td><a id="urlt{{ st.id }}" href="/admin/stock/transfer/{{ st.id }}">Transferer</a></td>
+                    	  
+                           
+                        </tr>
+                         
+                      </tbody>
+                      
+                       {% endfor %}
+                       
+                         
+                      
+                    </table>
+				  {% else %}
+				  Il n'y a pas d'element encore dans la base de donnée
+				  
+				  {% endif %}
+				  <br />
+				  <a href="/admin/product/add"><input type="button" class="btn btn-dark" value="Ajouter une commande"></a>
+                  </div>
+                </div>
+              </div>
+
+
+              
+
+              <div class="clearfix"></div>
+              
+              
+              
+              
+              
+
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+{% endblock %}
+{% block css %}
+
+
+{% endblock %}
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+//quand la page est chargé alors on execute le code dans les balises script
+
+{%  if stocks is defined %}
+{% for st in stocks %}
+
+	//on desactive le bouton envoyer
+	$('#enreg{{ st.id }}').prop("disabled",true);
+
+    $("#mod{{ st.id }}").on("click", function(event){
+		//prop change la propriété     
+    	//$('form>div>div>input:not(:first)').prop('disabled',false);
+    	//Quand il voit false il met l'inverse true, reciproquement
+    	$('#qtm{{ st.id }}').prop('disabled',false);
+    	$('#qte{{ st.id }}').prop('disabled',false);
+    	$('#enreg{{ st.id }}').prop('disabled',false);
+    });
+
+    
+
+    $("#qtetrs{{ st.id }}").on('blur', function(event){
+        
+    		var eventValue = event.target.value;
+  			var url = "/admin/stock/transfer/{{ st.id }}/"+eventValue;
+  	       	
+  			$('#urlt{{ st.id }}').attr('href', url);
+  	});
+    
+    $("#qtetrs{{ st.id }}").on('click', function(event){
+        
+		var eventValue = event.target.value;
+			var url = "/admin/stock/transfer/{{ st.id }}/"+eventValue;
+	       	
+			$('#urlt{{ st.id }}').attr('href', url);
+	});
+
+    {% endfor %}
+    {% endif %}
+
+
+
+    
+});
+</script>
+{% endblock %}
+       
