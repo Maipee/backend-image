@@ -48,10 +48,7 @@
                     <p class="text-muted font-13 m-b-30">
                       
                     </p>
-                    <div id="reponse"></div>
-                   
-                    
-                    
+                    <div id="reponse"></div>                   
                      <div id="prodAjout">
                      {%  if produit is defined %}
                             {% for rows in produit %}
@@ -83,20 +80,16 @@
                                     <td width="50%">
                                     	<input type="text" value="{{ rows.price }}" name="prix" size="100">
                                     </td>
-                                </tr>
-                                
-                                
-                                
+                                </tr>                                
                                  <tr>
                                     <td width="50%">
                                     	Image
                                     </td>
                                     <td width="50%">
                                     	<input type="text" value="{{ rows.picture }}" name="image" size="100">
+                                    	                 
                                     </td>
-                                </tr>
-                                
-                                
+                                </tr>                                                    
                                  <tr>
                                     <td width="50%">
                                     	Tva
@@ -195,13 +188,5 @@ a:hover {
 
 {% block javascripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script>
-//quand la page est chargé alors on execute le code dans les balises script
 
-
-
-	
-});
-
-</script>
 {% endblock %}

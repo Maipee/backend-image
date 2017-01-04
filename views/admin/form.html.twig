@@ -54,7 +54,7 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left" action="/admin/product/update/{{ prod.id }}" method="post">
+                    <form class="form-horizontal form-label-left" action="/admin/product/update/{{ prod.id }}" method="post" enctype="multipart/form-data">
 					  <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">id</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -110,9 +110,9 @@
                       </div>
 					<div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Upload</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input id="file" type="file" />
+                        <div class="col-md-9 col-sm-9 col-xs-12">                         
                         </div>
+                        <input type="file" name="pictureFile" id ="pictureFile" class= "btn btn-file" value="Upload"> <progress id="progress"></progress>                        
                       </div>	
 						
                       
@@ -154,7 +154,7 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left" action="{{ url }}" method="post">
+                    <form class="form-horizontal form-label-left" action="{{ url }}" method="post" enctype="multipart/form-data">
 					  <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">id</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -205,8 +205,10 @@
 					<div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Image</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" name="picture" placeHolder="{{ picture }}" value="">
+                          <input type="text" class="form-control" name="picture" placeHolder="{{ picture }}" value="">                          
                         </div>
+                        <input type="file" name="pictureFile" id ="pictureFile" class="btn btn-file" value="Upload"><progress id="progress"></progress> 
+                            
                       </div>
 
                       
@@ -216,52 +218,20 @@
                           <button type="submit" class="btn btn-success" desabled ="desabled">Envoyer</button>
                         </div>
                       </div>
-
                     </form>
-                    
-                    
-                    
+                  
                 {% endif %}
                 	<div id="prev"></div>
                   </div>
                 </div>
               </div>
-
-
-            </div>
-
-           
+            </div>           
           </div>
         </div>
         <!-- /page content -->
 {% endblock %}
 {% block javascripts %}
-<script type="text/javascript">
-var fileInput = document.querySelector('#file'),
-progress = document.querySelector('#progress');
 
-fileInput.addEventListener('change', function() {
-
-var xhr = new XMLHttpRequest();
-
-xhr.open('POST', 'C:\Users\Pc-W10-21\workspace_f_2017\ecommerce_nodejs\public\images');
-
-xhr.upload.addEventListener('progress', function(e) {
-    progress.value = e.loaded;
-    progress.max = e.total;
-});
-
-xhr.addEventListener('load', function() {
-    alert('Upload terminé !');
-});
-
-var form = new FormData();
-form.append('file', fileInput.files[0]);
-
-xhr.send(form);
-
-});
-</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -278,6 +248,24 @@ $(document).ready(function(){
     });
 });
 </script>
+
+{# <script>#}
+{# //function pour uploader un fichier (ici une image)#}
+{# document.querySelector("#picture-file").addEventListener("change",function(){#}
+{# 	alert('toto');#}
+{# var xmlr= new XMLHttpRequest();#}
+{# xmlr.open('POST','/upload');#}
+{# xmlr.addEventListener('load',function(){#}
+{# 	alert('toto2');#}
+{# });#}
+{# var fd= new FormData();#}
+{# fd.append('file',document.querySelector("#picture-file").files[0]);#}
+{# xmlr.send(fd);#}
+{# });#}
+
+
+
+{# </script>#}
 {% endblock %}
 
 
